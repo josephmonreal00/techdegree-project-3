@@ -4,6 +4,7 @@ Treehouse Techdegree: FSJS Project 3 - Interactive Form
 
 //EVENT-LISTENER
 $(document).ready(function () {
+
     /* SECTION 1 -  PUT THE FIRST FIELD IN FOCUS STATE
     • Use jQuery to select the `Name` input element and place focus on it.
     */
@@ -116,6 +117,13 @@ $(document).ready(function () {
         let theNumber = '';
         let createInt = [];
 
+        let activity_obj = {
+            input_multi: [[], []],
+            days_multi: [[], []],
+            times_multi: [[], []],
+            timeandday: [[], []]
+        }
+
         /*
         For loop below will start from the dollar sign index within the string. For example if we click on the activity that
         has its text set as `Main Conference — $200` we should start the for loop at index 19 within the string and will end until
@@ -183,37 +191,34 @@ $(document).ready(function () {
 
         $("#updateCost").text(activityCost)
 
-        // ** THIS CODE MUST EXIST WITHIN THIS LISTENER **
-        let checkedCheckboxes = [];
-        let uncheckedCheckboxes = [];
-
-
         // EACH LOOP
         $(".activities label").each(function (index, element) {
-            if ($(this)[0]["firstChild"]["checked"]) {
-                checkedCheckboxes.push($(this)[0]);
+            if ($(element)[0]["firstChild"]["checked"]) {
+                activity_obj["input_multi"][0].push($(element));
             } else {
-                uncheckedCheckboxes.push($(this)[0]);
+                activity_obj["input_multi"][1].push($(element));
             }
         }); // END OF EACH LOOP
 
-        //for(let i = 0; i < checkedCheckboxes.length; i++) {
-        // console.log("checked",checkedCheckboxes[i]/*.textContent.substr(0,5)*/);
+
+        //for(let i = 0; i < activity_obj["checkedCheckboxes"].length; i++) {
+        //    //activity_obj["checkedCheckboxes"][i].attr("disabled", "disabled");
+        //    console.log("checked", activity_obj["checkedCheckboxes"][i]/*.setAttribute("disabled", true).textContent.substr(0,5)*/);
         //}
 
-        //for(let i = 0; i < uncheckedCheckboxes.length; i++) {
-        // console.log("unchecked",uncheckedCheckboxes[i]/*.textContent.substr(0,5)*/);
+        //for(let i = 0; i < activity_obj["uncheckedCheckboxes"].length; i++) {
+        // console.log("unchecked", activity_obj["uncheckedCheckboxes"][i]/*.textContent.substr(0,5)*/);
         //}
+
 
         // ** THIS CODE MUST EXIST WITHIN THIS LISTENER **
 
         // SECTION 4 - FINDING THE DAY AND TIME AND FIXING CONFLICTING ACTIVITIES
 
         // FOR LOOP FOR CHECKED ACTIVITIES
-        let checkedDays = [];
-        let checked_time = [];
 
-        $.each(checkedCheckboxes, function (index, element) {
+
+        $.each(activity_obj["input_multi"][0], function (index, element) {
             //checkedDays.push();
             let checkedDay = '';
             let index_for_day = $(element).text().indexOf(jQuery.parseHTML("&mdash;")[0]["textContent"]) + 2;
@@ -235,7 +240,7 @@ $(document).ready(function () {
                 checkedDay += turn_chars_into_day[i];
             }
 
-            checkedDays.push(checkedDay);
+            activity_obj["days_multi"][0].push(String(checkedDay));
 
             for (let i = comma_index - 1; i > index_for_day; i--) {
                 if ($(element).text()[i] != " ") {
@@ -245,21 +250,19 @@ $(document).ready(function () {
                 }
             }
 
-            //for(let i = 0; i < letTimeArray.length; i++) {
-            // checkedTime += time_in_chars[i];
-            //}
-
             checkedTime = time_in_chars.reverse().join("");
-            checked_time.push(checkedTime);
+            activity_obj["times_multi"][0].push(String(checkedTime));
+
+            activity_obj["timeandday"][0].push(String(checkedDay) + " " + String(checkedTime));
             //console.log($(element));
 
         }); // FOR LOOP FOR CHECKED ACTIVITIES
 
-        // FOR LOOP FOR UNCHECKED ACTIVITIES
-        let uncheckedDays = [];
-        let unchecked_time = [];
 
-        $.each(uncheckedCheckboxes, function (index, element) {
+
+        // FOR LOOP FOR UNCHECKED ACTIVITIES
+
+        $.each(activity_obj["input_multi"][1], function (index, element) {
             //checkedDays.push();
             let unchecked_day = '';
             let index_for_day_un = $(element).text().indexOf(jQuery.parseHTML("&mdash;")[0]["textContent"]) + 2;
@@ -281,7 +284,7 @@ $(document).ready(function () {
                 unchecked_day += turn_chars_into_day_[i];
             }
 
-            uncheckedDays.push(unchecked_day);
+            activity_obj["days_multi"][1].push(String(unchecked_day));
 
             for (let i = comma_index_ - 1; i > index_for_day_un; i--) {
                 if ($(element).text()[i] != " ") {
@@ -291,25 +294,29 @@ $(document).ready(function () {
                 }
             }
 
-            //for(let i = 0; i < letTimeArray.length; i++) {
-            // checkedTime += time_in_chars[i];
-            //}
-
             uncheckedTime = time_in_chars_un.reverse().join("");
-            unchecked_time.push(uncheckedTime);
-            //console.log($(element));
+            activity_obj["times_multi"][1].push(String(uncheckedTime));
+            activity_obj["timeandday"][1].push(String(unchecked_day) + " " + String(uncheckedTime));
+
         }); // FOR LOOP FOR UNCHECKED ACTIVITIES
 
-        //$.each(checkedDays, function(index,element) {
-        // console.log(element);
-        //});
-        //console.log(checkedDays);
-        //console.log(checked_time);
 
-        console.log(uncheckedDays);
+        $.each(activity_obj["timeandday"][0], function (index, element) {
+            $.each(activity_obj["timeandday"][1], function (index, element2) {
+                if (element2 == element) {
+                    console.log(index, element);
+                }
+            });
+        });
 
 
 
+        //console.log(activity_obj["times_multi"][1]);
+        //console.log(activity_obj["days_multi"][1]);
+        //console.log(activity_obj["times_multi"][0]);
+        //console.log(activity_obj["days_multi"][0]);
+        //console.log(activity_obj["input_multi"][0]);
+        //console.log(activity_obj["input_multi"][1]);
 
     }); // END OF EVENT LISTENER FOR $(".activities label").change(function(event) {
 
