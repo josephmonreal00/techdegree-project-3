@@ -118,10 +118,18 @@ $(document).ready(function () {
         let createInt = [];
 
         let activity_obj = {
+            //checked and unchecked
             input_multi: [[], []],
+            // checked and unchecked
             days_multi: [[], []],
+            // checked and unchecked
             times_multi: [[], []],
-            timeandday: [[], []]
+            // checked and unchecked
+            timeandday: [[], []],
+            // (0) checked day/time (1)unchecked day/time
+            // (2) checked tues element (3)unchecked tues element
+            // (4) disabled
+            tuesdayelements: [[], [], [], [], ]
         }
 
         /*
@@ -201,16 +209,6 @@ $(document).ready(function () {
         }); // END OF EACH LOOP
 
 
-        //for(let i = 0; i < activity_obj["checkedCheckboxes"].length; i++) {
-        //    //activity_obj["checkedCheckboxes"][i].attr("disabled", "disabled");
-        //    console.log("checked", activity_obj["checkedCheckboxes"][i]/*.setAttribute("disabled", true).textContent.substr(0,5)*/);
-        //}
-
-        //for(let i = 0; i < activity_obj["uncheckedCheckboxes"].length; i++) {
-        // console.log("unchecked", activity_obj["uncheckedCheckboxes"][i]/*.textContent.substr(0,5)*/);
-        //}
-
-
         // ** THIS CODE MUST EXIST WITHIN THIS LISTENER **
 
         // SECTION 4 - FINDING THE DAY AND TIME AND FIXING CONFLICTING ACTIVITIES
@@ -251,19 +249,23 @@ $(document).ready(function () {
             }
 
             checkedTime = time_in_chars.reverse().join("");
+
+            if (checkedDay == "Tuesday") {
+                activity_obj["tuesdayelements"][0].push(String(checkedDay) + " " + String(checkedTime));
+                activity_obj["tuesdayelements"][2].push(element);
+            }
+
+
             activity_obj["times_multi"][0].push(String(checkedTime));
 
             activity_obj["timeandday"][0].push(String(checkedDay) + " " + String(checkedTime));
-            //console.log($(element));
 
         }); // FOR LOOP FOR CHECKED ACTIVITIES
 
 
 
         // FOR LOOP FOR UNCHECKED ACTIVITIES
-
         $.each(activity_obj["input_multi"][1], function (index, element) {
-            //checkedDays.push();
             let unchecked_day = '';
             let index_for_day_un = $(element).text().indexOf(jQuery.parseHTML("&mdash;")[0]["textContent"]) + 2;
             let uncheckedTime = '';
@@ -286,6 +288,8 @@ $(document).ready(function () {
 
             activity_obj["days_multi"][1].push(String(unchecked_day));
 
+
+
             for (let i = comma_index_ - 1; i > index_for_day_un; i--) {
                 if ($(element).text()[i] != " ") {
                     time_in_chars_un.push($(element).text()[i]);
@@ -295,29 +299,52 @@ $(document).ready(function () {
             }
 
             uncheckedTime = time_in_chars_un.reverse().join("");
+
+            if (unchecked_day == "Tuesday") {
+                activity_obj["tuesdayelements"][1].push(String(unchecked_day) + " " + String(uncheckedTime));
+                activity_obj["tuesdayelements"][3].push(element);
+            }
+
+
             activity_obj["times_multi"][1].push(String(uncheckedTime));
             activity_obj["timeandday"][1].push(String(unchecked_day) + " " + String(uncheckedTime));
 
-        }); // FOR LOOP FOR UNCHECKED ACTIVITIES
-
-
-        $.each(activity_obj["timeandday"][0], function (index, element) {
-            $.each(activity_obj["timeandday"][1], function (index, element2) {
-                if (element2 == element) {
-                    console.log(index, element);
-                }
-            });
         });
 
 
+        // Working :)
+        if (activity_obj["tuesdayelements"][0].length == 2) {
+            $.each(activity_obj["tuesdayelements"][0], function (ind, elem) {
+                activity_obj["tuesdayelements"][3][ind][0]["firstChild"]["disabled"] = true;
+            });
+        }
 
-        //console.log(activity_obj["times_multi"][1]);
-        //console.log(activity_obj["days_multi"][1]);
-        //console.log(activity_obj["times_multi"][0]);
-        //console.log(activity_obj["days_multi"][0]);
-        //console.log(activity_obj["input_multi"][0]);
-        //console.log(activity_obj["input_multi"][1]);
+        // Working :)
+        if (activity_obj["tuesdayelements"][0].length == 1) {
+            $.each(activity_obj["tuesdayelements"][0], function (ind, elem) {
+                $.each(activity_obj["tuesdayelements"][1], function (i, ele) {
+                    if (elem == ele) {
 
+                        activity_obj["tuesdayelements"][3][i][0]["firstChild"]["disabled"] = true;
+                    }
+                    if (elem != ele) {
+                        activity_obj["tuesdayelements"][3][i][0]["firstChild"]["disabled"] = false;
+                    }
+                });
+            });
+        }
+
+
+        // Working :)
+        if (activity_obj["tuesdayelements"][0].length == 0) {
+            $.each(activity_obj["tuesdayelements"][3], function (ind, elem) {
+                activity_obj["tuesdayelements"][3][ind][0]["firstChild"]["disabled"] = false;
+            });
+        }
+
+        //console.log(activity_obj["tuesdayelements"][4]);
+        //console.log(activity_obj["tuesdayelements"][0]);
+        //console.log(activity_obj["tuesdayelements"][1]);
+        //console.log(activity_obj["tuesdayelements"][3]);
     }); // END OF EVENT LISTENER FOR $(".activities label").change(function(event) {
-
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
