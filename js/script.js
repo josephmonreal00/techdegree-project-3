@@ -8,7 +8,7 @@ $(document).ready(function () {
     /* SECTION 1 -  PUT THE FIRST FIELD IN FOCUS STATE
     • Use jQuery to select the `Name` input element and place focus on it.
     */
-    $('#name').focus();
+    $("#name").focus();
 
     /* SECTION 2 - ADD AN "OTHER" OPTION TO THE JOB ROLE SECTION
     •  In the `index.html` file, just below the `Job Role` select element, create a text input element, set its `name` attribute to "job_role_other",
@@ -118,14 +118,19 @@ $(document).ready(function () {
         let createInt = [];
 
         let activity_obj = {
+
             //checked and unchecked
             input_multi: [[], []],
+
             // checked and unchecked
             days_multi: [[], []],
+
             // checked and unchecked
             times_multi: [[], []],
+
             // checked and unchecked
             timeandday: [[], []],
+
             // (0) checked day/time (1)unchecked day/time
             // (2) checked tues element (3)unchecked tues element
             // (4) disabled
@@ -347,4 +352,103 @@ $(document).ready(function () {
         //console.log(activity_obj["tuesdayelements"][1]);
         //console.log(activity_obj["tuesdayelements"][3]);
     }); // END OF EVENT LISTENER FOR $(".activities label").change(function(event) {
+
+
+
+
+
+
+    // PAYMENT INFO SECTION
+    /*
+     Initially, the credit card section should be selected and displayed in the form, and the other two
+     payment options should be hidden. The user should be able to change payment options at any time, but shouldn't
+     be able to select the "Select Payment Method" option. So you'll need to check the currently selected payment
+     option, and hide and show the payment sections in the form accordingly.
+
+      -  Hide the "Select Payment Method" 'option' so it doesn't show up in the drop down menu. (Done)
+
+      - Get the value of the payment select element, and if it's equal to 'credit card', set the credit card
+       payment section in the form to show, and set the other two options to hide.
+
+      - Repeat the above step with the PayPal and BitCoin options so that the selected payment is shown and the
+       others are hidden.
+    */
+
+    // 1. MAKE THE CREDIT CARD PAYMENT THE DEFAULT OPTION TO BE SHOWN WHEN PAGE IS LOADED.
+
+
+    let values = $("#payment option");
+    values[0]["hidden"] = true;
+    values[0]["selected"] = false;
+    values[1]["selected"] = true;
+
+    let allDivs = $("div");
+    $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
+    $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
+    $("#payment").change(function (e) {
+        if (e.target.value == "paypal" || e.target.value == "bitcoin") {
+            $(allDivs[allDivs.length - 1])[0]["hidden"] = false;
+            $(allDivs[allDivs.length - 2])[0]["hidden"] = false;
+            $("#credit-card").hide("slow");
+        }
+        if (e.target.value == "credit card") {
+            $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
+            $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
+            $("#credit-card").show("slow");
+        }
+    });
+
+
+
+
+    // FORM VALIDATION
+    /*
+     If any of the following validation errors exist, prevent the user form submitting the form:
+      - Name field can't be blank
+      - Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address,
+        just that it's formatted like one: dave@teamtreehouse.com for example
+      - User must select at least one checkbox under the "Register for Activities" section of the form.
+      - If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number,
+        a zip code, and a 3 number CVV value before the form can be submitted
+       - Credit Card field should accept a 5-digit number
+       - The Zip Code field should accept a 5-digit number
+       - The CVV should only accept a number that is exactly 3 digits long
+    */
+
+    /* FORM VALIDATION MESSAGES
+     - Provide some kind of indicatoin when there's a validation error. The field's border could turn red, for example,
+       or even better for the user would be if a red text message appeared near the field.
+     - The following fields should have some obvious form of an error indication:
+      - Name Field
+      - Email Field
+      - Register for Activities checkboxes (at least one must be selected)
+      - Credit Card number (only if Credit Card payment method is selected)
+      - Zip Code(only if Credit Card payment method is selected)
+      - CVV (Only if Credit Card payment method is selected)
+
+    */
+    
+
+    
+    let inputs = [$("#name"), $("#mail"), $("#cc-num"), $("#zip"), $("#cvv")];
+    $.each(inputs, function(index, element){
+     element.focusout(function(){
+      if(element[0]["value"]["length"] == 0){
+       // show an error too the user
+       element[0].style.borderColor = "#CD5C5C";
+       console.log("error");
+      }
+      else {
+       element[0].style.borderColor = "#5e97b0";
+      }
+      console.log(index, element);
+      console.log(element[0]["value"]["length"]);
+     });
+    });
+    
+
+
+    // NEED AN EVENT FOR THE SUBMIT REGISTER BUTTON
+
+
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
