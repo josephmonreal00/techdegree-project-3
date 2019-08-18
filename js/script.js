@@ -431,15 +431,23 @@ $(document).ready(function () {
     //const nameregex = //;
     //const emailregex = //;
     const ccnumregex = /^\d{16}$/;
+    const ccnumregex2 = /^\d{4}[-]\d{4}[-]\d{4}[-]\d{4}$/;
     const zipregex = /^\d{5}$/;
     const cvvregex = /^\d{3}$/;
     
-    //console.log(ccnumregex.test("3333333333333333"));
+    console.log(ccnumregex2.test("2222-2222-2222-2222"));
+    console.log(ccnumregex.test(2222222222222222));
     //console.log(parseInt(d33));
+    
 
 
     let inputs = [$("#name"), $("#mail"), $("#cc-num"), $("#zip"), $("#cvv")];
-    $.each(inputs, function (index, element) {
+    
+    $("#cc-num").after("<small id='ccerror'></small>");
+    $("#zip").after("<small id='ziperror'></small>");
+    $("#cvv").after("<small id='cvverror'></small>");
+    
+    $.each(inputs, function (index, element) { 
         element.focusout(function () {
             
             // Name 
@@ -464,37 +472,43 @@ $(document).ready(function () {
             
             // Credit Card
             if(index == 2) {
-        
+                console.log("value", typeof element[0]["value"]);
+                
+                
                 if(element[0]["value"]["length"] == 0) {
                     element[0].style.borderColor = "#CD5C5C";
                 }
                 
+                /*
                 let getNumsCC = "";
+                let dashcount = 0;
+                
                 for(let i = 0; i < element[0]["value"]["length"]; i++) {
                     //console.log(i, isNaN(element[0]["value"][i]));
                     if(element[0]["value"][i] != "-" && isNaN(element[0]["value"][i]) == false){
                        getNumsCC += parseInt(element[0]["value"][i]); 
                     }
-                    //else {
-                    //    console.log("Please enter a 16 digit number in the following format xxxx-xxxx-xxxx-xxxx")
-                    //}
+                    if(element[0]["value"][i] == "-"){
+                       dashcount += 1;
+                    }
                 }
-
-                //console.log("--->", parseInt(getNumsCC));
-                
-                if(element[0]["value"]["length"] != 0 && isNaN(parseInt(getNumsCC)) == true && ccnumregex.test(parseInt(getNumsCC)) == false){
+                */
+   
+                if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false){
                     // concat int values to variable
                     // then compare that int value with the regex above     
-                    
+                    $("#ccerror").text("Please enter as xxxx-xxxx-xxxx-xxxx");
+                    $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                     console.log("Please insert a 16 digit cc num.");
                     console.log("Your cc number should only be numbers");
                 }
                 
-                if(element[0]["value"]["length"] != 0 && ccnumregex.test(parseInt(getNumsCC)) == true && isNaN(parseInt(getNumsCC)) == false) {
+                if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     console.log(element[0]["value"]);
-                    console.log("Thank you for your 5 digit zip code.");
+                    console.log("Thank you for your credit card number.");
+                    $("#ccerror").text("");
                 }
             }
             
@@ -524,12 +538,16 @@ $(document).ready(function () {
             
                 if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false){
                     element[0].style.borderColor = "#CD5C5C";
+                    //$("#cvv").after("<small id='error'>3 Digit Number</small>");
+                    $("#cvverror").text("3 Digit Number");
+                    $("#cvverror").css("color", "red");
                     console.log("Please insert only integers and make sure CVV is only 3 integers long.");
                     console.log("Your CVV should only be numbers");
                 }
                 
                 if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == true) {
                     element[0].style.borderColor = "#5e97b0";
+                    $("#cvverror").text("");
                     console.log(element[0]["value"]);
                     console.log("Thank you for inserting an int for cvv that is 3 integers long");
                 }
