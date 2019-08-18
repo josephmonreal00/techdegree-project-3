@@ -428,27 +428,121 @@ $(document).ready(function () {
 
     */
     
-
+    //const nameregex = //;
+    //const emailregex = //;
+    const ccnumregex = /^\d{16}$/;
+    const zipregex = /^\d{5}$/;
+    const cvvregex = /^\d{3}$/;
     
+    //console.log(ccnumregex.test("3333333333333333"));
+    //console.log(parseInt(d33));
+
+
     let inputs = [$("#name"), $("#mail"), $("#cc-num"), $("#zip"), $("#cvv")];
-    $.each(inputs, function(index, element){
-     element.focusout(function(){
-      if(element[0]["value"]["length"] == 0){
-       // show an error too the user
-       element[0].style.borderColor = "#CD5C5C";
-       console.log("error");
-      }
-      else {
-       element[0].style.borderColor = "#5e97b0";
-      }
-      console.log(index, element);
-      console.log(element[0]["value"]["length"]);
-     });
+    $.each(inputs, function (index, element) {
+        element.focusout(function () {
+            
+            // Name 
+            if(index == 0) {
+                if(element[0]["value"]["length"] == 0) {
+                    element[0].style.borderColor = "#CD5C5C";
+                }
+                else {
+                    element[0].style.borderColor = "#5e97b0";
+                }
+            }
+            
+            // Email
+            if(index == 1) {
+                if(element[0]["value"]["length"] == 0) {
+                    element[0].style.borderColor = "#CD5C5C";
+                }
+                else {
+                    element[0].style.borderColor = "#5e97b0";
+                }
+            }
+            
+            // Credit Card
+            if(index == 2) {
+        
+                if(element[0]["value"]["length"] == 0) {
+                    element[0].style.borderColor = "#CD5C5C";
+                }
+                
+                let getNumsCC = "";
+                for(let i = 0; i < element[0]["value"]["length"]; i++) {
+                    //console.log(i, isNaN(element[0]["value"][i]));
+                    if(element[0]["value"][i] != "-" && isNaN(element[0]["value"][i]) == false){
+                       getNumsCC += parseInt(element[0]["value"][i]); 
+                    }
+                    //else {
+                    //    console.log("Please enter a 16 digit number in the following format xxxx-xxxx-xxxx-xxxx")
+                    //}
+                }
+
+                //console.log("--->", parseInt(getNumsCC));
+                
+                if(element[0]["value"]["length"] != 0 && isNaN(parseInt(getNumsCC)) == true && ccnumregex.test(parseInt(getNumsCC)) == false){
+                    // concat int values to variable
+                    // then compare that int value with the regex above     
+                    
+                    element[0].style.borderColor = "#CD5C5C";
+                    console.log("Please insert a 16 digit cc num.");
+                    console.log("Your cc number should only be numbers");
+                }
+                
+                if(element[0]["value"]["length"] != 0 && ccnumregex.test(parseInt(getNumsCC)) == true && isNaN(parseInt(getNumsCC)) == false) {
+                    element[0].style.borderColor = "#5e97b0";
+                    console.log(element[0]["value"]);
+                    console.log("Thank you for your 5 digit zip code.");
+                }
+            }
+            
+            // Zip Code
+            if(index == 3) {
+                if(element[0]["value"]["length"] == 0) {
+                    element[0].style.borderColor = "#CD5C5C";
+                }
+                if(element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == false){
+                    element[0].style.borderColor = "#CD5C5C";
+                    console.log("Please insert a 5 digit zip code.");
+                    console.log("Your zip should only be numbers and 5 digits long");
+                }
+                
+                if(element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == true) {
+                    element[0].style.borderColor = "#5e97b0";
+                    console.log(element[0]["value"]);
+                    console.log("Thank you for your 5 digit zip code.");
+                }
+            }
+            
+            // CVV 
+            if(index == 4) {
+                if(element[0]["value"]["length"] == 0) {
+                    element[0].style.borderColor = "#CD5C5C";
+                }
+            
+                if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false){
+                    element[0].style.borderColor = "#CD5C5C";
+                    console.log("Please insert only integers and make sure CVV is only 3 integers long.");
+                    console.log("Your CVV should only be numbers");
+                }
+                
+                if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == true) {
+                    element[0].style.borderColor = "#5e97b0";
+                    console.log(element[0]["value"]);
+                    console.log("Thank you for inserting an int for cvv that is 3 integers long");
+                }
+            }
+            
+        });
     });
     
-
-
+    
     // NEED AN EVENT FOR THE SUBMIT REGISTER BUTTON
+    
+    
+    // I want to keep the register button disabled until everything is correct. 
 
 
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
