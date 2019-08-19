@@ -355,9 +355,6 @@ $(document).ready(function () {
 
 
 
-
-
-
     // PAYMENT INFO SECTION
     /*
      Initially, the credit card section should be selected and displayed in the form, and the other two
@@ -399,8 +396,6 @@ $(document).ready(function () {
     });
 
 
-
-
     // FORM VALIDATION
     /*
      If any of the following validation errors exist, prevent the user form submitting the form:
@@ -428,24 +423,64 @@ $(document).ready(function () {
 
     */
     
-    //const nameregex = //;
-    //const emailregex = //;
-    const ccnumregex = /^\d{16}$/;
+    //const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+    const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
+    const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const ccnumregex2 = /^\d{4}[-]\d{4}[-]\d{4}[-]\d{4}$/;
     const zipregex = /^\d{5}$/;
     const cvvregex = /^\d{3}$/;
     
-    console.log(ccnumregex2.test("2222-2222-2222-2222"));
-    console.log(ccnumregex.test(2222222222222222));
+    //console.log(ccnumregex2.test("2222-2222-2222-2222"));
+    //console.log(ccnumregex.test(2222222222222222));
     //console.log(parseInt(d33));
     
 
 
     let inputs = [$("#name"), $("#mail"), $("#cc-num"), $("#zip"), $("#cvv")];
     
+    $("#name").after("<small id='nameerror'></small>");
+    $("#mail").after("<small id='mailerror'></small>");
     $("#cc-num").after("<small id='ccerror'></small>");
     $("#zip").after("<small id='ziperror'></small>");
     $("#cvv").after("<small id='cvverror'></small>");
+    
+    $(".activities label").eq(6)[0].after($("<small id='activityerror'></small>")[0]);
+    
+
+    console.log($('.activities label').eq(6)[0]);
+    console.log($("<small id='activityerror'></small>")[0]);
+        
+    //$("#activityerror").text("Select Activity");
+    //$("#activityerror").css("color", "red");
+   
+    console.log($(".activities label"));
+    let act_error = $(".activities label");
+    //console.log("six", $(".activities label")[6]);
+    let a_count = 0;
+    $.each(act_error, function(index, element){
+        console.log(index, $(element)[0]["firstChild"]["checked"]);
+        if($(element)[0]["firstChild"]["checked"] == false) {
+            a_count += 1;
+        }
+        if(a_count == 7) {
+            $("#activityerror").text("Select one or more activities before registering");
+            $("#activityerror").css("color", "red");
+        }
+        if(a_count != 7) {
+            $("#activityerror").text("");
+            //$("#activityerror").css("color", "red");
+        }   
+    });
+    console.log("acount", a_count);
+    
+
+    //inputs[0].focus(function(){
+        
+        
+    //})
+    
+
+    
     
     $.each(inputs, function (index, element) { 
         element.focusout(function () {
@@ -453,108 +488,118 @@ $(document).ready(function () {
             // Name 
             if(index == 0) {
                 if(element[0]["value"]["length"] == 0) {
+                    $("#nameerror").text("Please enter name");
+                    $("#nameerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                 }
-                else {
+                
+                if(element[0]["value"]["length"] != 0 && nameregex.test(element[0]["value"]) == false){
+                    $("#nameerror").text("Example: Firstname Lastname");
+                    $("#nameerror").css("color", "red");
                     element[0].style.borderColor = "#5e97b0";
+                }
+                
+                if(element[0]["value"]["length"] != 0 && nameregex.test(element[0]["value"]) == true){
+                    element[0].style.borderColor = "#5e97b0";
+                    $("#nameerror").text("");
                 }
             }
             
             // Email
             if(index == 1) {
                 if(element[0]["value"]["length"] == 0) {
+                    $("#mailerror").text("Please enter email address");
+                    $("#mailerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                 }
-                else {
+                
+                if(element[0]["value"]["length"] != 0 && emailregex.test(element[0]["value"]) == false){
+                    $("#mailerror").text("Example: clippernation@icloud.com");
+                    $("#mailerror").css("color", "red");
                     element[0].style.borderColor = "#5e97b0";
+                }
+                
+                if(element[0]["value"]["length"] != 0 && emailregex.test(element[0]["value"]) == true){
+                    element[0].style.borderColor = "#5e97b0";
+                    $("#mailerror").text("");
                 }
             }
             
             // Credit Card
             if(index == 2) {
-                console.log("value", typeof element[0]["value"]);
-                
-                
+                //console.log("value", typeof element[0]["value"]);
                 if(element[0]["value"]["length"] == 0) {
-                    element[0].style.borderColor = "#CD5C5C";
-                }
-                
-                /*
-                let getNumsCC = "";
-                let dashcount = 0;
-                
-                for(let i = 0; i < element[0]["value"]["length"]; i++) {
-                    //console.log(i, isNaN(element[0]["value"][i]));
-                    if(element[0]["value"][i] != "-" && isNaN(element[0]["value"][i]) == false){
-                       getNumsCC += parseInt(element[0]["value"][i]); 
-                    }
-                    if(element[0]["value"][i] == "-"){
-                       dashcount += 1;
-                    }
-                }
-                */
-   
-                if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false){
-                    // concat int values to variable
-                    // then compare that int value with the regex above     
-                    $("#ccerror").text("Please enter as xxxx-xxxx-xxxx-xxxx");
+                    $("#ccerror").text("Please enter credit card");
                     $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
-                    console.log("Please insert a 16 digit cc num.");
-                    console.log("Your cc number should only be numbers");
+                }
+   
+                if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false){    
+                    $("#ccerror").text("Enter as xxxx-xxxx-xxxx-xxxx");
+                    $("#ccerror").css("color", "red");
+                    element[0].style.borderColor = "#CD5C5C";
+                    //console.log("Please insert a 16 digit cc num.");
+                    //console.log("Your cc number should only be numbers");
                 }
                 
                 if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
-                    console.log(element[0]["value"]);
-                    console.log("Thank you for your credit card number.");
                     $("#ccerror").text("");
+                    //console.log(element[0]["value"]);
+                    //console.log("Thank you for your credit card number.");
                 }
             }
             
             // Zip Code
             if(index == 3) {
                 if(element[0]["value"]["length"] == 0) {
+                    $("#ziperror").text("Please enter zip code");
+                    $("#ziperror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                 }
                 if(element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == false){
                     element[0].style.borderColor = "#CD5C5C";
-                    console.log("Please insert a 5 digit zip code.");
-                    console.log("Your zip should only be numbers and 5 digits long");
+                    $("#ziperror").text("Enter 5 digit number");
+                    $("#ziperror").css("color", "red");
+                    //console.log("Please insert a 5 digit zip code.");
+                    //console.log("Your zip should only be numbers and 5 digits long");
                 }
                 
                 if(element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == true) {
                     element[0].style.borderColor = "#5e97b0";
-                    console.log(element[0]["value"]);
-                    console.log("Thank you for your 5 digit zip code.");
+                    $("#ziperror").text("");
+                    //console.log(element[0]["value"]);
+                    //console.log("Thank you for your 5 digit zip code.");
                 }
             }
             
             // CVV 
             if(index == 4) {
                 if(element[0]["value"]["length"] == 0) {
+                    $("#cvverror").text("Please enter cvv");
+                    $("#cvverror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                 }
             
                 if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false){
                     element[0].style.borderColor = "#CD5C5C";
-                    //$("#cvv").after("<small id='error'>3 Digit Number</small>");
-                    $("#cvverror").text("3 Digit Number");
+                    $("#cvverror").text("Enter 3 digit number");
                     $("#cvverror").css("color", "red");
-                    console.log("Please insert only integers and make sure CVV is only 3 integers long.");
-                    console.log("Your CVV should only be numbers");
+                    //$("#cvv").after("<small id='error'>3 Digit Number</small>");
+                    //console.log("Please insert only integers and make sure CVV is only 3 integers long.");
+                    //console.log("Your CVV should only be numbers");
                 }
                 
                 if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#cvverror").text("");
-                    console.log(element[0]["value"]);
-                    console.log("Thank you for inserting an int for cvv that is 3 integers long");
+                    //console.log(element[0]["value"]);
+                    //console.log("Thank you for inserting an int for cvv that is 3 integers long");
                 }
             }
-            
         });
     });
+    
     
     
     // NEED AN EVENT FOR THE SUBMIT REGISTER BUTTON
