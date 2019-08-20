@@ -1,5 +1,7 @@
 /******************************************
 Treehouse Techdegree: FSJS Project 3 - Interactive Form
+Name: Joseph Monreal
+Date: 
 ******************************************/
 
 //EVENT-LISTENER
@@ -46,18 +48,11 @@ $(document).ready(function () {
       and update the "Color" field to the first available color.
     */
     $("#design option").eq(0).hide();
-    //console.log($("#design option").eq(0));
     $("#color").prepend($('<option>Please select a T-shirt theme</option>'));
     $("#color option").eq(0).attr('data-brackets-id', '449');
     $("#color option").eq(0).attr('style', 'display: none;');
     $("#color option").eq(0).attr('selected', 'selected');
     $("#color option:not(:eq(0))").hide();
-
-    /*
-    $("#color option").each(function(index, element) {
-        console.log(element);
-    });
-    */
 
     //EVENT-LISTENER
     $("#design").on("change", function () {
@@ -174,14 +169,8 @@ $(document).ready(function () {
         */
 
         for (let i = 0; i < createInt.length; i++) {
-            //console.log("element");
-            //console.log(createInt[i]);
             theNumber += createInt[i].toString();
-            //createInt.join().replace(',', '')
         }
-        //console.log(theNumber);
-        //console.log(parseInt(theNumber));
-        //console.log($(this)[0]["firstChild"]["checked"]);
 
         // This if statement is checking if element has been checked and if so will add to variable activityCost
         if ($(this)[0]["firstChild"]["checked"] == true) {
@@ -192,11 +181,8 @@ $(document).ready(function () {
         if ($(this)[0]["firstChild"]["checked"] == false) {
             activityCost -= parseInt(theNumber);
         }
-        //console.log($("#updateCost").text(activityCost));
 
         /*
-        $("#updateCost").text(activityCost)
-
         This is setting the text for the appended element and the span element within with id set as updateCost.
             let totalCost = $("<h2>Total Cost: <span id='updateCost'></span> </h2>");
         The user will now be able too see the cost of the activities selected.
@@ -222,7 +208,6 @@ $(document).ready(function () {
 
 
         $.each(activity_obj["input_multi"][0], function (index, element) {
-            //checkedDays.push();
             let checkedDay = '';
             let index_for_day = $(element).text().indexOf(jQuery.parseHTML("&mdash;")[0]["textContent"]) + 2;
             let checkedTime = '';
@@ -266,7 +251,6 @@ $(document).ready(function () {
             activity_obj["timeandday"][0].push(String(checkedDay) + " " + String(checkedTime));
 
         }); // FOR LOOP FOR CHECKED ACTIVITIES
-
 
 
         // FOR LOOP FOR UNCHECKED ACTIVITIES
@@ -316,15 +300,12 @@ $(document).ready(function () {
 
         });
 
-
-        // Working :)
         if (activity_obj["tuesdayelements"][0].length == 2) {
             $.each(activity_obj["tuesdayelements"][0], function (ind, elem) {
                 activity_obj["tuesdayelements"][3][ind][0]["firstChild"]["disabled"] = true;
             });
         }
 
-        // Working :)
         if (activity_obj["tuesdayelements"][0].length == 1) {
             $.each(activity_obj["tuesdayelements"][0], function (ind, elem) {
                 $.each(activity_obj["tuesdayelements"][1], function (i, ele) {
@@ -339,18 +320,11 @@ $(document).ready(function () {
             });
         }
 
-
-        // Working :)
         if (activity_obj["tuesdayelements"][0].length == 0) {
             $.each(activity_obj["tuesdayelements"][3], function (ind, elem) {
                 activity_obj["tuesdayelements"][3][ind][0]["firstChild"]["disabled"] = false;
             });
         }
-
-        //console.log(activity_obj["tuesdayelements"][4]);
-        //console.log(activity_obj["tuesdayelements"][0]);
-        //console.log(activity_obj["tuesdayelements"][1]);
-        //console.log(activity_obj["tuesdayelements"][3]);
     }); // END OF EVENT LISTENER FOR $(".activities label").change(function(event) {
 
 
@@ -422,190 +396,194 @@ $(document).ready(function () {
       - CVV (Only if Credit Card payment method is selected)
 
     */
-    
-    //const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
-    const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
+
+    const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+    //const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
+    //const nameregex = /[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/
     const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const ccnumregex2 = /^\d{4}[-]\d{4}[-]\d{4}[-]\d{4}$/;
     const zipregex = /^\d{5}$/;
     const cvvregex = /^\d{3}$/;
-    
-    //console.log(ccnumregex2.test("2222-2222-2222-2222"));
-    //console.log(ccnumregex.test(2222222222222222));
-    //console.log(parseInt(d33));
-    
-
 
     let inputs = [$("#name"), $("#mail"), $("#cc-num"), $("#zip"), $("#cvv")];
-    
+
     $("#name").after("<small id='nameerror'></small>");
     $("#mail").after("<small id='mailerror'></small>");
     $("#cc-num").after("<small id='ccerror'></small>");
     $("#zip").after("<small id='ziperror'></small>");
     $("#cvv").after("<small id='cvverror'></small>");
-    
+    $("button").after("<br><small id='submiterror'></small>");
     $(".activities label").eq(6)[0].after($("<small id='activityerror'></small>")[0]);
-    
 
-    console.log($('.activities label').eq(6)[0]);
-    console.log($("<small id='activityerror'></small>")[0]);
-        
-    //$("#activityerror").text("Select Activity");
-    //$("#activityerror").css("color", "red");
-   
-    console.log($(".activities label"));
     let act_error = $(".activities label");
-    //console.log("six", $(".activities label")[6]);
     let a_count = 0;
-    $.each(act_error, function(index, element){
-        console.log(index, $(element)[0]["firstChild"]["checked"]);
-        if($(element)[0]["firstChild"]["checked"] == false) {
+
+    $.each(act_error, function (index, element) {
+        if ($(element)[0]["firstChild"]["checked"] == false) {
             a_count += 1;
         }
-        if(a_count == 7) {
+
+        if (a_count == 7) {
             $("#activityerror").text("Select one or more activities before registering");
             $("#activityerror").css("color", "red");
         }
-        if(a_count != 7) {
-            $("#activityerror").text("");
-            //$("#activityerror").css("color", "red");
-        }   
     });
-    console.log("acount", a_count);
-    
 
-    //inputs[0].focus(function(){
-        
-        
-    //})
-    
+    $(".activities label").change(function (event) {
+        if (event.target.checked == true) {
+            a_count -= 1;
+        }
+        if (event.target.checked == false) {
+            a_count += 1;
+        }
+        if (a_count != 7) {
+            $("#activityerror").text("");
+        }
+        if (a_count == 7) {
+            $("#activityerror").text("Select one or more activities before registering");
+            $("#activityerror").css("color", "red");
+        }
+    })
 
-    
-    
-    $.each(inputs, function (index, element) { 
+
+    let thenames = [];
+    let theemails = [];
+    let theccs = [];
+    let thezips = [];
+    let thecvvs = [];
+
+    $.each(inputs, function (index, element) {
         element.focusout(function () {
-            
-            // Name 
-            if(index == 0) {
-                if(element[0]["value"]["length"] == 0) {
-                    $("#nameerror").text("Please enter name");
+
+            // Name
+            if (index == 0) {
+                if (element[0]["value"]["length"] == 0) {
+                    $("#nameerror").text("Please enter full name");
                     $("#nameerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
+                    thenames.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && nameregex.test(element[0]["value"]) == false){
+
+                if (element[0]["value"]["length"] != 0 && nameregex.test(element[0]["value"]) == false) {
                     $("#nameerror").text("Example: Firstname Lastname");
                     $("#nameerror").css("color", "red");
                     element[0].style.borderColor = "#5e97b0";
+                    thenames.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && nameregex.test(element[0]["value"]) == true){
+
+                if (element[0]["value"]["length"] != 0 && nameregex.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#nameerror").text("");
+                    thenames.push(element[0]["value"]);
                 }
             }
-            
+
             // Email
-            if(index == 1) {
-                if(element[0]["value"]["length"] == 0) {
+            if (index == 1) {
+                if (element[0]["value"]["length"] == 0) {
                     $("#mailerror").text("Please enter email address");
                     $("#mailerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
+                    theemails.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && emailregex.test(element[0]["value"]) == false){
+
+                if (element[0]["value"]["length"] != 0 && emailregex.test(element[0]["value"]) == false) {
                     $("#mailerror").text("Example: clippernation@icloud.com");
                     $("#mailerror").css("color", "red");
                     element[0].style.borderColor = "#5e97b0";
+                    theemails.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && emailregex.test(element[0]["value"]) == true){
+
+                if (element[0]["value"]["length"] != 0 && emailregex.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#mailerror").text("");
+                    theemails.push(element[0]["value"]);
                 }
             }
-            
+
             // Credit Card
-            if(index == 2) {
+            if (index == 2) {
                 //console.log("value", typeof element[0]["value"]);
-                if(element[0]["value"]["length"] == 0) {
+                if (element[0]["value"]["length"] == 0) {
                     $("#ccerror").text("Please enter credit card");
                     $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
+                    theccs.push(element[0]["value"]);
                 }
-   
-                if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false){    
+
+                if (element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false) {
                     $("#ccerror").text("Enter as xxxx-xxxx-xxxx-xxxx");
                     $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
-                    //console.log("Please insert a 16 digit cc num.");
-                    //console.log("Your cc number should only be numbers");
+                    theccs.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
+
+                if (element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ccerror").text("");
-                    //console.log(element[0]["value"]);
-                    //console.log("Thank you for your credit card number.");
+                    theccs.push(element[0]["value"]);
                 }
             }
-            
+
             // Zip Code
-            if(index == 3) {
-                if(element[0]["value"]["length"] == 0) {
+            if (index == 3) {
+                if (element[0]["value"]["length"] == 0) {
                     $("#ziperror").text("Please enter zip code");
                     $("#ziperror").css("color", "red");
+                    thezips.push(element[0]["value"]);
                     element[0].style.borderColor = "#CD5C5C";
                 }
-                if(element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == false){
+                if (element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == false) {
                     element[0].style.borderColor = "#CD5C5C";
                     $("#ziperror").text("Enter 5 digit number");
                     $("#ziperror").css("color", "red");
-                    //console.log("Please insert a 5 digit zip code.");
-                    //console.log("Your zip should only be numbers and 5 digits long");
+                    thezips.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == true) {
+
+                if (element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ziperror").text("");
-                    //console.log(element[0]["value"]);
-                    //console.log("Thank you for your 5 digit zip code.");
+                    thezips.push(element[0]["value"]);
                 }
             }
-            
-            // CVV 
-            if(index == 4) {
-                if(element[0]["value"]["length"] == 0) {
+
+            // CVV
+            if (index == 4) {
+                if (element[0]["value"]["length"] == 0) {
                     $("#cvverror").text("Please enter cvv");
                     $("#cvverror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
+                    thecvvs.push(element[0]["value"]);
                 }
-            
-                if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false){
+
+                if (element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false) {
                     element[0].style.borderColor = "#CD5C5C";
                     $("#cvverror").text("Enter 3 digit number");
                     $("#cvverror").css("color", "red");
-                    //$("#cvv").after("<small id='error'>3 Digit Number</small>");
-                    //console.log("Please insert only integers and make sure CVV is only 3 integers long.");
-                    //console.log("Your CVV should only be numbers");
+                    thecvvs.push(element[0]["value"]);
                 }
-                
-                if(element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == true) {
+
+                if (element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#cvverror").text("");
-                    //console.log(element[0]["value"]);
-                    //console.log("Thank you for inserting an int for cvv that is 3 integers long");
+                    thecvvs.push(element[0]["value"]);
                 }
             }
         });
     });
-    
-    
-    
-    // NEED AN EVENT FOR THE SUBMIT REGISTER BUTTON
-    
-    
-    // I want to keep the register button disabled until everything is correct. 
 
+    $("button").click(function () {
+        $("form").submit(function (event) {
+            if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                $("form")[0].reset();
+                return;
+            } else {
+                $("button").css("backgroundColor", "red");
+                $("#submiterror").text("Complete form please.");
+                $("#submiterror").css("color", "red");
+                event.preventDefault();
+            }
+        });
+    })
 
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
