@@ -1,7 +1,5 @@
 /******************************************
 Treehouse Techdegree: FSJS Project 3 - Interactive Form
-Name: Joseph Monreal
-Date: 
 ******************************************/
 
 //EVENT-LISTENER
@@ -33,49 +31,82 @@ $(document).ready(function () {
 
 
     /* SECTION 3 - T-Shirt
-    •  The goal for the t-shirt section is to filter the available "Color" options by the selected theme in the "Design" field.
-     Doing this ensures that the user cannot select an invalid combination of values for the "Design" and "Color" fields.
-    •  When the form is intially loaded, we need to update the "Design" and "Color" field so that it's clear to the user that they need to select a theme before selecting a color.
-     •  Hide the "Select Theme" `option` element in the "Design" menu.
-     •  Update the “Color” field to read “Please select a T-shirt theme”.
-     •  Hide the colors in the “Color” drop down menu.
-    •  Then, when one of the two themes is selected, only the appropriate colors should show in the "Color" drop down menu, and
-     the "Color" field should update to the first available color. You'll use a `change` event listener on the "Design" menu `select` element to listen for changes.
-     And inside the event listener, you'll use a conditional to determine what to hide, show and update.
-     •  If "js puns" is selected, hide the three "heart js" option element in the "Color" drop down menu, show the three
-      "js puns" option elements, and update the "Color" field to the first available color.
-     •  If "heart js" is selected, hide the three "js puns" option elements in the "Color" drop down menu, show the three "heart js" option elements,
-      and update the "Color" field to the first available color.
+     •   The goal for the t-shirt section is to filter the available "Color" options by the selected theme in the "Design" field.
+       Doing this ensures that the user cannot select an invalid combination of values for the "Design" and "Color" fields.
+     •   When the form is intially loaded, we need to update the "Design" and "Color" field so that it's clear to the user that they need to select a theme before selecting a color.
+      •   Hide the "Select Theme" `option` element in the "Design" menu.
+      •   Update the “Color” field to read “Please select a T-shirt theme”.
+      •   Hide the colors in the “Color” drop down menu.
+     •   Then, when one of the two themes is selected, only the appropriate colors should show in the "Color" drop down menu, and
+       the "Color" field should update to the first available color. You'll use a `change` event listener on the "Design" menu `select` element to listen for changes.
+       And inside the event listener, you'll use a conditional to determine what to hide, show and update.
+      •   If "js puns" is selected, hide the three "heart js" option element in the "Color" drop down menu, show the three
+        "js puns" option elements, and update the "Color" field to the first available color.
+      •   If "heart js" is selected, hide the three "js puns" option elements in the "Color" drop down menu, show the three "heart js" option elements,
+        and update the "Color" field to the first available color.
     */
+
     $("#design option").eq(0).hide();
-    $("#color").prepend($('<option>Please select a T-shirt theme</option>'));
-    $("#color option").eq(0).attr('data-brackets-id', '449');
-    $("#color option").eq(0).attr('style', 'display: none;');
-    $("#color option").eq(0).attr('selected', 'selected');
-    $("#color option:not(:eq(0))").hide();
+
+    let izeroandione = [];
+    $.each($("#design option"), function (index, element) {
+        izeroandione.push(element);
+    });
+
+    let jscolors = [];
+    let punscolors = [];
+
+    $("#color").prepend($("<option value='selectanswer'>Please select a T-shirt theme</option>"));
+    $("#color option[value='selectanswer']")[0]["selected"] = true;
+
+    // Storing and Hiding Color Elements
+    $.each($("#color option"), function (index, element) {
+        if (index <= 3) {
+            $(element)[0]["selected"] = false;
+            $(element).hide();
+            jscolors.push($(element));
+        }
+        if (index >= 4) {
+            $(element).hide();
+            punscolors.push($(element));
+        }
+    });
+
+
+    $("#design").change(function (e) {
+        if (e.target.value == "js puns") {
+            $("#color option[value='selectanswer']").remove();
+            $.each(jscolors, function (index, element) {
+                if (element[0]["textContent"] == "Cornflower Blue (JS Puns shirt only)") {
+                    element[0]["selected"] = true;
+                } else {
+                    element[0]["selected"] = false;
+                }
+                element.show();
+            });
+            $.each(punscolors, function (index, element) {
+                element.hide();
+            });
+        }
+
+        if (e.target.value == "heart js") {
+            $("#color option[value='selectanswer']").remove();
+            $.each(jscolors, function (index, element) {
+                element.hide();
+            });
+            $.each(punscolors, function (index, element) {
+                if (element[0]["value"] == "tomato") {
+                    element[0]["selected"] = true;
+                } else {
+                    element[0]["selected"] = false;
+                }
+                element.show();
+            });
+        }
+    })
+
 
     //EVENT-LISTENER
-    $("#design").on("change", function () {
-
-        if ($(this).val() === 'js puns') {
-            //$("#color option").eq(0).attr('selected');
-            //$("#color option").eq(4).attr('selected');
-            $("#color option:lt(4)").show();
-            $("#color option").eq(1).attr('selected', 'selected');
-            $("#color option:gt(3)").hide();
-            $("#color option").eq(0).hide();
-
-        }
-        if ($(this).val() === 'heart js') {
-            //$("#color option").eq(0).attr('selected');
-            //$("#color option").eq(1).attr('selected');
-            $("#color option").eq(4).attr('selected', 'selected');
-            $("#color option:gt(3)").show();
-            $("#color option").eq(0).hide();
-            $("#color option:lt(4)").hide();
-        }
-    }); //END OF EVENT-LISTENER
-
     /* SECTION 4 - ACTIVITY SECTION - PRICE
 
     • Initialize variable to store cost of activities
@@ -345,21 +376,31 @@ $(document).ready(function () {
        others are hidden.
     */
 
-    // 1. MAKE THE CREDIT CARD PAYMENT THE DEFAULT OPTION TO BE SHOWN WHEN PAGE IS LOADED.
-
-
     let values = $("#payment option");
     values[0]["hidden"] = true;
     values[0]["selected"] = false;
     values[1]["selected"] = true;
 
     let allDivs = $("div");
+    // Bitcoin
+    console.log($(allDivs[allDivs.length - 1])[0]);
+
+    // Paypal
+    console.log($(allDivs[allDivs.length - 2])[0]);
+
     $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
     $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
+
+
     $("#payment").change(function (e) {
-        if (e.target.value == "paypal" || e.target.value == "bitcoin") {
-            $(allDivs[allDivs.length - 1])[0]["hidden"] = false;
+        if (e.target.value == "paypal") {
+            $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
             $(allDivs[allDivs.length - 2])[0]["hidden"] = false;
+            $("#credit-card").hide("slow");
+        }
+        if (e.target.value == "bitcoin") {
+            $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
+            $(allDivs[allDivs.length - 1])[0]["hidden"] = false;
             $("#credit-card").hide("slow");
         }
         if (e.target.value == "credit card") {
@@ -368,6 +409,7 @@ $(document).ready(function () {
             $("#credit-card").show("slow");
         }
     });
+
 
 
     // FORM VALIDATION
@@ -397,10 +439,12 @@ $(document).ready(function () {
 
     */
 
-    const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
-    //const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
-    //const nameregex = /[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/
+    //const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+    const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
     const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // 16 digit
+    const ccnumregex1 = /^\d{4}[-]\d{4}[-]\d{4}$/;
+    // 18 digit
     const ccnumregex2 = /^\d{4}[-]\d{4}[-]\d{4}[-]\d{4}$/;
     const zipregex = /^\d{5}$/;
     const cvvregex = /^\d{3}$/;
@@ -415,6 +459,7 @@ $(document).ready(function () {
     $("button").after("<br><small id='submiterror'></small>");
     $(".activities label").eq(6)[0].after($("<small id='activityerror'></small>")[0]);
 
+
     let act_error = $(".activities label");
     let a_count = 0;
 
@@ -428,6 +473,7 @@ $(document).ready(function () {
             $("#activityerror").css("color", "red");
         }
     });
+
 
     $(".activities label").change(function (event) {
         if (event.target.checked == true) {
@@ -511,14 +557,14 @@ $(document).ready(function () {
                     theccs.push(element[0]["value"]);
                 }
 
-                if (element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false) {
-                    $("#ccerror").text("Enter as xxxx-xxxx-xxxx-xxxx");
+                if (element[0]["value"]["length"] != 0 && ccnumregex1.test(element[0]["value"]) == false || element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false) {
+                    $("#ccerror").text("Enter as xxxx-xxxx-xxxx (or) xxxx-xxxx-xxxx-xxxx");
                     $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                     theccs.push(element[0]["value"]);
                 }
 
-                if (element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
+                if (element[0]["value"]["length"] != 0 && ccnumregex1.test(element[0]["value"]) == true || element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ccerror").text("");
                     theccs.push(element[0]["value"]);
@@ -575,9 +621,25 @@ $(document).ready(function () {
     $("button").click(function () {
         $("form").submit(function (event) {
             if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
-                $("form")[0].reset();
                 return;
             } else {
+
+                $("#nameerror").text("Please enter full name");
+                $("#nameerror").css("color", "red");
+
+                $("#mailerror").text("Please enter email address");
+                $("#mailerror").css("color", "red");
+
+                $("#ccerror").text("Please enter credit card");
+                $("#ccerror").css("color", "red");
+
+                $("#ziperror").text("Please enter zip code");
+                $("#ziperror").css("color", "red");
+
+                $("#cvverror").text("Please enter cvv");
+                $("#cvverror").css("color", "red");
+
+
                 $("button").css("backgroundColor", "red");
                 $("#submiterror").text("Complete form please.");
                 $("#submiterror").css("color", "red");
