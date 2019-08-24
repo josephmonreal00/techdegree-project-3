@@ -5,16 +5,16 @@ Treehouse Techdegree: FSJS Project 3 - Interactive Form
 //EVENT-LISTENER
 $(document).ready(function () {
 
-    /* SECTION 1 -  PUT THE FIRST FIELD IN FOCUS STATE
-    • Use jQuery to select the `Name` input element and place focus on it.
-    */
+    // SECTION 1 -  PUT THE FIRST FIELD IN FOCUS STATE
+    //Use jQuery to select the `Name` input element and place focus on it.
+
     $("#name").focus();
 
-    /* SECTION 2 - ADD AN "OTHER" OPTION TO THE JOB ROLE SECTION
-    •  In the `index.html` file, just below the `Job Role` select element, create a text input element, set its `name` attribute to "job_role_other",
-      set its `placeholder` attribute to "Your Job Role", and give it an "id" attribute of "other-title" so you can easily target this element in your JS file.
-    •  In your JavaScript file, target the 'Other' input field, and hide it initially, so that it will display if JavaScript is disabled, but be hidden initially with JS.
-    */
+    // SECTION 2 - ADD AN "OTHER" OPTION TO THE JOB ROLE SECTION
+    //In the `index.html` file, just below the `Job Role` select element, create a text input element, set its `name` attribute to "job_role_other",
+    //set its `placeholder` attribute to "Your Job Role", and give it an "id" attribute of "other-title" so you can easily target this element in your JS file.
+    // In your JavaScript file, target the 'Other' input field, and hide it initially, so that it will display if JavaScript is disabled, but be hidden initially with JS.
+
 
     $('#other-title').hide();
 
@@ -213,11 +213,11 @@ $(document).ready(function () {
             activityCost -= parseInt(theNumber);
         }
 
-        /*
-        This is setting the text for the appended element and the span element within with id set as updateCost.
-            let totalCost = $("<h2>Total Cost: <span id='updateCost'></span> </h2>");
-        The user will now be able too see the cost of the activities selected.
-        */
+        // /
+        //This is setting the text for the appended element and the span element within with id set as updateCost.
+        //    let totalCost = $("<h2>Total Cost: <span id='updateCost'></span> </h2>");
+        //The user will now be able too see the cost of the activities selected.
+        //*/
 
         $("#updateCost").text(activityCost)
 
@@ -231,7 +231,7 @@ $(document).ready(function () {
         }); // END OF EACH LOOP
 
 
-        // ** THIS CODE MUST EXIST WITHIN THIS LISTENER **
+        // *THIS CODE MUST EXIST WITHIN THIS LISTENEr
 
         // SECTION 4 - FINDING THE DAY AND TIME AND FIXING CONFLICTING ACTIVITIES
 
@@ -361,26 +361,25 @@ $(document).ready(function () {
 
 
     // PAYMENT INFO SECTION
-    /*
-     Initially, the credit card section should be selected and displayed in the form, and the other two
-     payment options should be hidden. The user should be able to change payment options at any time, but shouldn't
-     be able to select the "Select Payment Method" option. So you'll need to check the currently selected payment
-     option, and hide and show the payment sections in the form accordingly.
 
-      -  Hide the "Select Payment Method" 'option' so it doesn't show up in the drop down menu. (Done)
+    //Initially, the credit card section should be selected and displayed in the form, and the other two
+    // payment options should be hidden. The user should be able to change payment options at any time, but shouldn't
+    //  be able to select the "Select Payment Method" option. So you'll need to check the currently selected payment
+    //  option, and hide and show the payment sections in the form accordingly.
+    //
+    //   -  Hide the "Select Payment Method" 'option' so it doesn't show up in the drop down menu. (Done)
 
-      - Get the value of the payment select element, and if it's equal to 'credit card', set the credit card
-       payment section in the form to show, and set the other two options to hide.
+    //   - Get the value of the payment select element, and if it's equal to 'credit card', set the credit card
+    //    payment section in the form to show, and set the other two options to hide.
 
-      - Repeat the above step with the PayPal and BitCoin options so that the selected payment is shown and the
-       others are hidden.
-    */
+    //   - Repeat the above step with the PayPal and BitCoin options so that the selected payment is shown and the
+    //    others are hidden.
+
 
     let values = $("#payment option");
     values[0]["hidden"] = true;
     values[0]["selected"] = false;
     values[1]["selected"] = true;
-
     let allDivs = $("div");
     // Bitcoin
     console.log($(allDivs[allDivs.length - 1])[0]);
@@ -391,53 +390,59 @@ $(document).ready(function () {
     $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
     $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
 
-
+    let selectedPayment = [];
     $("#payment").change(function (e) {
         if (e.target.value == "paypal") {
+            selectedPayment.push(e.target.value);
             $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
             $(allDivs[allDivs.length - 2])[0]["hidden"] = false;
             $("#credit-card").hide("slow");
         }
         if (e.target.value == "bitcoin") {
+            selectedPayment.push(e.target.value);
             $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
             $(allDivs[allDivs.length - 1])[0]["hidden"] = false;
             $("#credit-card").hide("slow");
         }
         if (e.target.value == "credit card") {
+            selectedPayment.push(e.target.value);
             $(allDivs[allDivs.length - 1])[0]["hidden"] = true;
             $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
             $("#credit-card").show("slow");
         }
+        console.log(selectedPayment);
+
     });
+    console.log(selectedPayment.length);
 
 
 
     // FORM VALIDATION
-    /*
-     If any of the following validation errors exist, prevent the user form submitting the form:
-      - Name field can't be blank
-      - Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address,
-        just that it's formatted like one: dave@teamtreehouse.com for example
-      - User must select at least one checkbox under the "Register for Activities" section of the form.
-      - If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number,
-        a zip code, and a 3 number CVV value before the form can be submitted
-       - Credit Card field should accept a 5-digit number
-       - The Zip Code field should accept a 5-digit number
-       - The CVV should only accept a number that is exactly 3 digits long
-    */
 
-    /* FORM VALIDATION MESSAGES
-     - Provide some kind of indicatoin when there's a validation error. The field's border could turn red, for example,
-       or even better for the user would be if a red text message appeared near the field.
-     - The following fields should have some obvious form of an error indication:
-      - Name Field
-      - Email Field
-      - Register for Activities checkboxes (at least one must be selected)
-      - Credit Card number (only if Credit Card payment method is selected)
-      - Zip Code(only if Credit Card payment method is selected)
-      - CVV (Only if Credit Card payment method is selected)
+    //If any of the following validation errors exist, prevent the user form submitting the form:
+    // - Name field can't be blank
+    // - Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address,
+    //   just that it's formatted like one: dave@teamtreehouse.com for example
+    // - User must select at least one checkbox under the "Register for Activities" section of the form.
+    // - If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number,
+    //   a zip code, and a 3 number CVV value before the form can be submitted
+    //  - Credit Card field should accept a 5-digit number
+    //  - The Zip Code field should accept a 5-digit number
+    //  - The CVV should only accept a number that is exactly 3 digits long
 
-    */
+
+    //FORM VALIDATION MESSAGES
+    // - Provide some kind of indicatoin when there's a validation error. The field's border could turn red, for example,
+    //   or even better for the user would be if a red text message appeared near the field.
+    // - The following fields should have some obvious form of an error indication:
+    //  - Name Field
+    //  - Email Field
+    //  - Register for Activities checkboxes (at least one must be selected)
+    //  - Credit Card number (only if Credit Card payment method is selected)
+    //  - Zip Code(only if Credit Card payment method is selected)
+    //  - CVV (Only if Credit Card payment method is selected)
+
+
 
     //const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
     const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
@@ -557,7 +562,7 @@ $(document).ready(function () {
                     theccs.push(element[0]["value"]);
                 }
 
-                if (element[0]["value"]["length"] != 0 && ccnumregex1.test(element[0]["value"]) == false || element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == false) {
+                if (element[0]["value"]["length"] != 13 && ccnumregex1.test(element[0]["value"]) == false || element[0]["value"]["length"] != 16 && ccnumregex2.test(element[0]["value"]) == false) {
                     $("#ccerror").text("Enter as xxxx-xxxx-xxxx (or) xxxx-xxxx-xxxx-xxxx");
                     $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
@@ -579,14 +584,14 @@ $(document).ready(function () {
                     thezips.push(element[0]["value"]);
                     element[0].style.borderColor = "#CD5C5C";
                 }
-                if (element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == false) {
+                if (element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == false || element[0]["value"]["length"] > 5 || element[0]["value"]["length"] < 4) {
                     element[0].style.borderColor = "#CD5C5C";
                     $("#ziperror").text("Enter 5 digit number");
                     $("#ziperror").css("color", "red");
                     thezips.push(element[0]["value"]);
                 }
 
-                if (element[0]["value"]["length"] != 0 && zipregex.test(parseInt(element[0]["value"])) == true) {
+                if (element[0]["value"]["length"] != 0 && zipregex.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ziperror").text("");
                     thezips.push(element[0]["value"]);
@@ -602,7 +607,7 @@ $(document).ready(function () {
                     thecvvs.push(element[0]["value"]);
                 }
 
-                if (element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false) {
+                if (element[0]["value"]["length"] != 0 && cvvregex.test(parseInt(element[0]["value"])) == false || element[0]["value"]["length"] > 3 || element[0]["value"]["length"] < 3) {
                     element[0].style.borderColor = "#CD5C5C";
                     $("#cvverror").text("Enter 3 digit number");
                     $("#cvverror").css("color", "red");
@@ -615,37 +620,191 @@ $(document).ready(function () {
                     thecvvs.push(element[0]["value"]);
                 }
             }
+            console.log(thezips);
         });
     });
 
+    //console.log($("#payment option")[2]);
+    //console.log($("#payment option")[1]["value"]);
+    console.log(selectedPayment[selectedPayment.length - 1]);
     $("button").click(function () {
         $("form").submit(function (event) {
-            if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
-                return;
-            } else {
 
-                $("#nameerror").text("Please enter full name");
-                $("#nameerror").css("color", "red");
+            if (selectedPayment.length != 0 && selectedPayment[selectedPayment.length - 1] == "paypal" || selectedPayment.length != 0 && selectedPayment[selectedPayment.length - 1] == "bitcoin") {
+                
+                // Name missing
+                // 2 complete 1 missing 
+                // name is empty
+                // email is not empty
+                // an activity is selected
+                if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == true && a_count != 7) {
+                    $("#nameerror").text("Please enter full name");
+                    $("#nameerror").css("color", "red");
+                    
+                    $("#submiterror").text("Please provide your full name.");
+                    $("#submiterror").css("color", "red");
+                    
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // Email missing 
+                // 2 complete 1 missing
+                // name is not empty 
+                // email is empty
+                // activity is not empty 
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && a_count != 7) {
+                    $("#mailerror").text("Please enter email address");
+                    $("#mailerror").css("color", "red");
+                    
+                    $("#submiterror").text("Please provide your email.");
+                    $("#submiterror").css("color", "red");
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
 
-                $("#mailerror").text("Please enter email address");
-                $("#mailerror").css("color", "red");
+                // name and email missing 
+                // activity not missing
+                if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == false && a_count != 7) {
+                    $("#nameerror").text("Please enter full name");
+                    $("#nameerror").css("color", "red");
+                    
+                    $("#mailerror").text("Please enter email address");
+                    $("#mailerror").css("color", "red");
+                    
+                    $("#submiterror").text("Please enter your full name and email.");
+                    $("#submiterror").css("color", "red");
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // name and activity missing 
+                if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == true && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering");
+                    $("#activityerror").css("color", "red");
+                    
+                    $("#nameerror").text("Please enter full name");
+                    $("#nameerror").css("color", "red");
+                    
+                    $("#submiterror").text("Please enter your full name and select an activity.");
+                    $("#submiterror").css("color", "red");
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email and activity missing 
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering");
+                    $("#activityerror").css("color", "red");
+                    
+                    $("#mailerror").text("Please enter email address");
+                    $("#mailerror").css("color", "red");
+                    
+                    $("#submiterror").text("Please enter your email and select an activity.");
+                    $("#submiterror").css("color", "red");
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
 
-                $("#ccerror").text("Please enter credit card");
-                $("#ccerror").css("color", "red");
+                if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == false && a_count == 7) {
+                    $("#nameerror").text("Please enter full name");
+                    $("#nameerror").css("color", "red");
 
-                $("#ziperror").text("Please enter zip code");
-                $("#ziperror").css("color", "red");
+                    $("#mailerror").text("Please enter email address");
+                    $("#mailerror").css("color", "red");
+                    
+                    $("#activityerror").text("Select one or more activities before registering");
+                    $("#activityerror").css("color", "red");
 
-                $("#cvverror").text("Please enter cvv");
-                $("#cvverror").css("color", "red");
+                    $("button").css("backgroundColor", "red");
+                    $("#submiterror").text("Complete form please.");
+                    $("#submiterror").css("color", "red");
+                    event.preventDefault();
+                }
 
-
-                $("button").css("backgroundColor", "red");
-                $("#submiterror").text("Complete form please.");
-                $("#submiterror").css("color", "red");
-                event.preventDefault();
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && a_count != 7) {
+                    $("#submiterror").text("Thank you for your information.");
+                    $("#submiterror").css("color", "white");
+                    $("button").css("backgroundColor", "#083f57");
+                    event.preventDefault();
+                    //return;
+                }
             }
         });
-    })
-
+    });
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
+
+/*
+  if(selectedPayment.length == 0 || selectedPayment[selectedPayment.length - 1] == "credit card"){
+   $("form").submit(function (event) {
+    if(nameregex.test(thenames[thenames.length - 1]) == false){
+     $("#nameerror").text("Please enter full name");
+           $("#nameerror").css("color", "red");
+           $("#submiterror").text("Complete form please.");
+                     $("#submiterror").css("color", "red");
+           event.preventDefault();
+    }
+
+    if(emailregex.test(theemails[theemails.length - 1]) == false){
+        $("#mailerror").text("Please enter email address");
+           $("#mailerror").css("color", "red");
+           $("#submiterror").text("Complete form please.");
+                     $("#submiterror").css("color", "red");
+           event.preventDefault();
+    }
+
+    if(ccnumregex1.test(theccs[theccs.length - 1]) == false){
+          $("#ccerror").text("Please enter credit card");
+           $("#ccerror").css("color", "red");
+           $("#submiterror").text("Complete form please.");
+                     $("#submiterror").css("color", "red");
+           event.preventDefault();
+    }
+
+    if(ccnumregex2.test(theccs[theccs.length - 1]) == false){
+              $("#ccerror").text("Please enter credit card");
+               $("#ccerror").css("color", "red");
+               $("#submiterror").text("Complete form please.");
+                         $("#submiterror").css("color", "red");
+           event.preventDefault();
+    }
+
+    if(zipregex.test(parseInt(thezips[thezips.length - 1])) == false){
+            $("#ziperror").text("Please enter zip code");
+                       $("#ziperror").css("color", "red");
+                       $("#submiterror").text("Complete form please.");
+                                 $("#submiterror").css("color", "red");
+           event.preventDefault();
+
+    }
+
+    if(cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false){
+               $("#cvverror").text("Please enter cvv");
+           $("#cvverror").css("color", "red");
+           $("#submiterror").text("Complete form please.");
+                     $("#submiterror").css("color", "red");
+           event.preventDefault();
+
+    }
+
+    if(a_count == 7){
+        $("#activityerror").text("Select one or more activities before registering");
+              $("#activityerror").css("color", "red");
+              $("button").css("backgroundColor", "red");
+                $("#submiterror").text("Complete form please.");
+                $("#submiterror").css("color", "red");
+           event.preventDefault();
+
+    }
+
+    ///zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7
+
+       if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+     return;
+       }
+       if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+           return;
+       }
+         });
+  }
+ */
