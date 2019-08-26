@@ -670,7 +670,8 @@ $(document).ready(function () {
                     $("button").css("backgroundColor", "red");
                     event.preventDefault();
                 }
-
+                
+                
                 // email is missing 
                 // done
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
@@ -697,7 +698,7 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 
-
+                
                 // credit card 1 is missing done
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
                     $("#ccerror").text("Please enter credit card");
@@ -721,6 +722,7 @@ $(document).ready(function () {
                     $("button").css("backgroundColor", "red");
                     event.preventDefault();
                 }
+                
 
                 // zip is missing Done         
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
@@ -746,6 +748,8 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 
+                
+                
                 // cvv is missing
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count != 7) {
                     $("#cvverror").text("Please enter cvv.");
@@ -770,6 +774,7 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 
+                
                 // activity is missing
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
                     $("#activityerror").text("Select one or more activities before registering.");
@@ -793,6 +798,8 @@ $(document).ready(function () {
                     $("button").css("backgroundColor", "red");
                     event.preventDefault();
                 }
+                
+                
                 
                 // name is missing
                 // email is missing
@@ -828,6 +835,7 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 
+                
                 // name is missing
                 // credit card 1 is missing
                 if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
@@ -860,6 +868,8 @@ $(document).ready(function () {
                     $("button").css("backgroundColor", "red");
                     event.preventDefault();
                 }
+                
+                
                 
                 // name is missing
                 // zip is missing
@@ -896,6 +906,7 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 
+                
                 // name is missing
                 // cvv is missing
                 // 1
@@ -929,6 +940,7 @@ $(document).ready(function () {
                     $("button").css("backgroundColor", "red");
                     event.preventDefault();
                 }
+                
                 
                 // name is missing
                 // activity is missing
@@ -964,7 +976,252 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 
+                // EMAIL
                 
+                // email is missing
+                // activity is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email is missing
+                // activity is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                
+                // email is missing
+                // cc is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter credit card.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and credit card.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email is missing
+                // cc is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex2.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter credit card.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and credit card.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email is missing
+                // zip is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#ziperror").text("Please enter zip code.");
+                    $("#ziperror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and zip code.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email is missing
+                // zip is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#ziperror").text("Please enter zip code.");
+                    $("#ziperror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and zip code.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email is missing
+                // cvv is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count != 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#cvverror").text("Please enter cvv.");
+                    $("#cvverror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and cvv.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // email is missing
+                // cvv is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count != 7) {
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#cvverror").text("Please enter cvv.");
+                    $("#cvverror").css("color", "red");
+
+                    $("#submiterror").text("Please enter email and cvv.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                
+                // ACTIVITY 
+                
+                
+                // activity is missing
+                // cc is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter credit card.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter credit card and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // activity is missing
+                // cc is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter credit card.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter credit card and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // activity is missing
+                // zip is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter credit card.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter zip and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // activity is missing
+                // zip is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter credit card.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#submiterror").text("Please enter zip and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // activity is missing
+                // cvv is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#cvverror").text("Please enter cvv.");
+                    $("#cvverror").css("color", "red");
+
+                    $("#submiterror").text("Please enter cvv and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // activity is missing
+                // cvv is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count == 7) {
+                    $("#activityerror").text("Select one or more activities before registering.");
+                    $("#activityerror").css("color", "red");
+
+                    $("#cvverror").text("Please enter cvv.");
+                    $("#cvverror").css("color", "red");
+
+                    $("#submiterror").text("Please enter cvv and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                /*
                 // name is missing
                 // email is missing
                 // credit card is missing
@@ -1339,6 +1596,56 @@ $(document).ready(function () {
                     $("#activityerror").css("color", "red");
 
                     $("#submiterror").text("Please enter credit card, cvv, and select an activity.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // name is missing
+                // email is missing
+                // zip is missing
+                // cvv is missing
+                // 1
+                if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count != 7) {
+                    $("#nameerror").text("Please enter full name.");
+                    $("#nameerror").css("color", "red");
+
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter zip code.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#ziperror").text("Please enter cvv.");
+                    $("#ziperror").css("color", "red");
+
+                    $("#submiterror").text("Please enter name, email, credit card, and zip.");
+                    $("#submiterror").css("color", "red");
+
+                    $("button").css("backgroundColor", "red");
+                    event.preventDefault();
+                }
+                
+                // name is missing
+                // email is missing
+                // zip is missing
+                // cvv is missing
+                // 2
+                if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count != 7) {
+                    $("#nameerror").text("Please enter full name.");
+                    $("#nameerror").css("color", "red");
+
+                    $("#mailerror").text("Please enter email address.");
+                    $("#mailerror").css("color", "red");
+
+                    $("#ccerror").text("Please enter zip code.");
+                    $("#ccerror").css("color", "red");
+
+                    $("#ziperror").text("Please enter cvv.");
+                    $("#ziperror").css("color", "red");
+
+                    $("#submiterror").text("Please enter name, email, credit card, and zip.");
                     $("#submiterror").css("color", "red");
 
                     $("button").css("backgroundColor", "red");
@@ -1812,6 +2119,7 @@ $(document).ready(function () {
                     $("button").css("backgroundColor", "red");
                     event.preventDefault();
                 }
+                */
 
                 // Everything missing
                 if (nameregex.test(thenames[thenames.length - 1]) == false && emailregex.test(theemails[theemails.length - 1]) == false && ccnumregex1.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == false && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == false && a_count == 7) {
