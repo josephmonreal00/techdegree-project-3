@@ -2765,11 +2765,7 @@ $(document).ready(function () {
 
             }
 
-
-
             //PAYPAL OR BITCOIN
-
-
 
             if (selectedPayment.length != 0 && selectedPayment[selectedPayment.length - 1] == "paypal" || selectedPayment.length != 0 && selectedPayment[selectedPayment.length - 1] == "bitcoin") {
 
@@ -2884,7 +2880,7 @@ $(document).ready(function () {
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
                     //event.preventDefault();
-                    event.submit();
+                    return;
                 }
             }
             //event.preventDefault();
