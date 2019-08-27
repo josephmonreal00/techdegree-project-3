@@ -52,7 +52,11 @@ $(document).ready(function () {
     $.each($("#design option"), function (index, element) {
         izeroandione.push(element);
     });
-
+    
+    if($("#design option").eq(0)[0]["selected"] == true) {
+        $("#colors-js-puns").hide();
+    }
+    
     let jscolors = [];
     let punscolors = [];
 
@@ -75,6 +79,7 @@ $(document).ready(function () {
 
     $("#design").change(function (e) {
         if (e.target.value == "js puns") {
+            $("#colors-js-puns").show("slow");
             $("#color option[value='selectanswer']").remove();
             $.each(jscolors, function (index, element) {
                 if (element[0]["textContent"] == "Cornflower Blue (JS Puns shirt only)") {
@@ -90,6 +95,7 @@ $(document).ready(function () {
         }
 
         if (e.target.value == "heart js") {
+            $("#colors-js-puns").show("slow");
             $("#color option[value='selectanswer']").remove();
             $.each(jscolors, function (index, element) {
                 element.hide();
@@ -2773,8 +2779,8 @@ $(document).ready(function () {
                     $("#submiterror").text("Thank you for your information.");
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
-                    event.preventDefault();
-                    //return;
+                    //event.preventDefault();
+                    return;
                 }
 
                 // Everything not missing
@@ -2788,8 +2794,8 @@ $(document).ready(function () {
                     $("#submiterror").text("Thank you for your information.");
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
-                    event.preventDefault();
-                    //return;
+                    //event.preventDefault();
+                    return;
                 }
 
             }
@@ -2912,8 +2918,8 @@ $(document).ready(function () {
                     $("#submiterror").text("Thank you for your information.");
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
-                    event.preventDefault();
-                    //return;
+                    //event.preventDefault();
+                    return;
                 }
             }
             event.preventDefault();
