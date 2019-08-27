@@ -566,15 +566,15 @@ $(document).ready(function () {
                     element[0].style.borderColor = "#CD5C5C";
                     theccs.push(element[0]["value"]);
                 }
-
-                if (element[0]["value"]["length"] != 13 && ccnumregex1.test(element[0]["value"]) == false || element[0]["value"]["length"] != 16 && ccnumregex2.test(element[0]["value"]) == false) {
+                console.log(element[0]["value"]["length"]);
+                if (element[0]["value"]["length"] != 14 && ccnumregex1.test(element[0]["value"]) == false || element[0]["value"]["length"] != 19 && ccnumregex2.test(element[0]["value"]) == false) {
                     $("#ccerror").text("Enter as xxxx-xxxx-xxxx (or) xxxx-xxxx-xxxx-xxxx");
                     $("#ccerror").css("color", "red");
                     element[0].style.borderColor = "#CD5C5C";
                     theccs.push(element[0]["value"]);
                 }
 
-                if (element[0]["value"]["length"] != 0 && ccnumregex1.test(element[0]["value"]) == true || element[0]["value"]["length"] != 0 && ccnumregex2.test(element[0]["value"]) == true) {
+                if (element[0]["value"]["length"] == 14 && ccnumregex1.test(element[0]["value"]) == true || element[0]["value"]["length"] == 19 && ccnumregex2.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ccerror").text("");
                     theccs.push(element[0]["value"]);
@@ -625,25 +625,12 @@ $(document).ready(function () {
                     thecvvs.push(element[0]["value"]);
                 }
             }
-            console.log(thezips);
+            console.log(theccs);
+            console.log(theccs[theccs.length - 1]);
         });
     });
 
-
-
-
-
-
-    console.log($("#payment")[0][1]["value"]);
-
-
-
-
-
-
-
-
-
+    
     $("button").click(function () {
         $("form").submit(function (event) {
 
@@ -698,31 +685,6 @@ $(document).ready(function () {
                     $("#mailerror").css("color", "red");
 
                     $("#submiterror").text("Please provide email.");
-                    $("#submiterror").css("color", "red");
-
-                    $("button").css("backgroundColor", "red");
-                    event.preventDefault();
-                }
-
-
-                // credit card 1 is missing done
-                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
-                    $("#ccerror").text("Please enter credit card");
-                    $("#ccerror").css("color", "red");
-
-                    $("#submiterror").text("Please provide credit card number.");
-                    $("#submiterror").css("color", "red");
-
-                    $("button").css("backgroundColor", "red");
-                    event.preventDefault();
-                }
-
-                // credit card 2 is missing done
-                if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == false && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
-                    $("#ccerror").text("Please enter credit card.");
-                    $("#ccerror").css("color", "red");
-
-                    $("#submiterror").text("Please provide credit card number.");
                     $("#submiterror").css("color", "red");
 
                     $("button").css("backgroundColor", "red");
@@ -2770,6 +2732,7 @@ $(document).ready(function () {
 
                 // Everything not missing
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex1.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                    /*
                     $("#nameerror").text("");
                     $("#mailerror").text("");
                     $("#ccerror").text("");
@@ -2780,11 +2743,13 @@ $(document).ready(function () {
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
                     //event.preventDefault();
+                    */
                     return;
                 }
 
                 // Everything not missing
                 if (nameregex.test(thenames[thenames.length - 1]) == true && emailregex.test(theemails[theemails.length - 1]) == true && ccnumregex2.test(theccs[theccs.length - 1]) == true && zipregex.test(parseInt(thezips[thezips.length - 1])) == true && cvvregex.test(parseInt(thecvvs[thecvvs.length - 1])) == true && a_count != 7) {
+                    /*
                     $("#nameerror").text("");
                     $("#mailerror").text("");
                     $("#ccerror").text("");
@@ -2794,7 +2759,7 @@ $(document).ready(function () {
                     $("#submiterror").text("Thank you for your information.");
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
-                    //event.preventDefault();
+                    */
                     return;
                 }
 
@@ -2919,10 +2884,10 @@ $(document).ready(function () {
                     $("#submiterror").css("color", "white");
                     $("button").css("backgroundColor", "#083f57");
                     //event.preventDefault();
-                    return;
+                    event.submit();
                 }
             }
-            event.preventDefault();
+            //event.preventDefault();
         });
     });
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
