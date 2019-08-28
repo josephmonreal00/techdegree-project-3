@@ -2,49 +2,28 @@
 Treehouse Techdegree: FSJS Project 3 - Interactive Form
 ******************************************/
 
-//EVENT-LISTENER
 $(document).ready(function () {
 
     // SECTION 1 -  PUT THE FIRST FIELD IN FOCUS STATE
-    //Use jQuery to select the `Name` input element and place focus on it.
 
     $("#name").focus();
 
     // SECTION 2 - ADD AN "OTHER" OPTION TO THE JOB ROLE SECTION
-    //In the `index.html` file, just below the `Job Role` select element, create a text input element, set its `name` attribute to "job_role_other",
-    //set its `placeholder` attribute to "Your Job Role", and give it an "id" attribute of "other-title" so you can easily target this element in your JS file.
-    // In your JavaScript file, target the 'Other' input field, and hide it initially, so that it will display if JavaScript is disabled, but be hidden initially with JS.
-
 
     $('#other-title').hide();
 
     let lastValue = $('#title option:last-child').val();
 
-    //EVENT-LISTENER
     $('#title').change(function () {
         if ($(this).val() == 'other') {
             $('#other-title').show('slow');
         } else {
             $('#other-title').hide('slow');
         }
-    }); //END OF EVENT-LISTENER
+    }); 
 
 
-    /* SECTION 3 - T-Shirt
-     •   The goal for the t-shirt section is to filter the available "Color" options by the selected theme in the "Design" field.
-       Doing this ensures that the user cannot select an invalid combination of values for the "Design" and "Color" fields.
-     •   When the form is intially loaded, we need to update the "Design" and "Color" field so that it's clear to the user that they need to select a theme before selecting a color.
-      •   Hide the "Select Theme" `option` element in the "Design" menu.
-      •   Update the “Color” field to read “Please select a T-shirt theme”.
-      •   Hide the colors in the “Color” drop down menu.
-     •   Then, when one of the two themes is selected, only the appropriate colors should show in the "Color" drop down menu, and
-       the "Color" field should update to the first available color. You'll use a `change` event listener on the "Design" menu `select` element to listen for changes.
-       And inside the event listener, you'll use a conditional to determine what to hide, show and update.
-      •   If "js puns" is selected, hide the three "heart js" option element in the "Color" drop down menu, show the three
-        "js puns" option elements, and update the "Color" field to the first available color.
-      •   If "heart js" is selected, hide the three "js puns" option elements in the "Color" drop down menu, show the three "heart js" option elements,
-        and update the "Color" field to the first available color.
-    */
+    // SECTION 3 - T-Shirt 
 
     $("#design option").eq(0).hide();
 
@@ -111,32 +90,6 @@ $(document).ready(function () {
         }
     });
 
-
-    //EVENT-LISTENER
-    /* SECTION 4 - ACTIVITY SECTION - PRICE
-
-    • Initialize variable to store cost of activities
-      let activityCost = 0
-    • Created DOM Element and stored into global totalCost variable
-      let totalCost = $("<h2>Total Cost: <span id='updateCost'></span> </h2>");
-    •  Appended global totalCost varible to the `activity` section
-      $(".activities").append(totalCost);
-    • let activityPrice
-      parseInt(event.currentTarget.textContent.substr(event.currentTarget.textContent.length -3, event.currentTarget.textContent.length));
-    • Retrieving the index of the $ sign. This will help us inside the for loop on where to start iterating the text.
-      let startIndex = $(this).text().indexOf("$");
-    • When the change event occurs retrieve the text of that element and cast it as a String just in case
-      let intoString = String($(this).text());
-    • Create a global variable that will store the index of the last number that occurs within the text
-      let lastNumInd = 0;
-    • Create a global variable that will store the numbers that are still text into theNumber
-      let theNumber = '';
-      let theNumber will store the number as text create a for loop that will iterate through each index and
-      parse each element into an integer and store each number into the createInt array.
-
-    • let createInt = []
-
-    */
     let activityCost = 0;
     let totalCost = $("<h2>Total Cost: <span id='updateCost'></span> </h2>");
     $(".activities").append(totalCost);
@@ -150,19 +103,14 @@ $(document).ready(function () {
         let createInt = [];
 
         let activity_obj = {
-
             //checked and unchecked
             input_multi: [[], []],
-
             // checked and unchecked
             days_multi: [[], []],
-
             // checked and unchecked
             times_multi: [[], []],
-
             // checked and unchecked
             timeandday: [[], []],
-
             // (0) checked day/time (1)unchecked day/time
             // (2) checked tues element (3)unchecked tues element
             // (4) disabled
@@ -219,30 +167,18 @@ $(document).ready(function () {
             activityCost -= parseInt(theNumber);
         }
 
-        // /
-        //This is setting the text for the appended element and the span element within with id set as updateCost.
-        //    let totalCost = $("<h2>Total Cost: <span id='updateCost'></span> </h2>");
-        //The user will now be able too see the cost of the activities selected.
-        //*/
-
         $("#updateCost").text(activityCost)
 
-        // EACH LOOP
+  
         $(".activities label").each(function (index, element) {
             if ($(element)[0]["firstChild"]["checked"]) {
                 activity_obj["input_multi"][0].push($(element));
             } else {
                 activity_obj["input_multi"][1].push($(element));
             }
-        }); // END OF EACH LOOP
-
-
-        // *THIS CODE MUST EXIST WITHIN THIS LISTENEr
+        }); 
 
         // SECTION 4 - FINDING THE DAY AND TIME AND FIXING CONFLICTING ACTIVITIES
-
-        // FOR LOOP FOR CHECKED ACTIVITIES
-
 
         $.each(activity_obj["input_multi"][0], function (index, element) {
             let checkedDay = '';
@@ -365,22 +301,7 @@ $(document).ready(function () {
     }); // END OF EVENT LISTENER FOR $(".activities label").change(function(event) {
 
 
-
-    // PAYMENT INFO SECTION
-
-    //Initially, the credit card section should be selected and displayed in the form, and the other two
-    // payment options should be hidden. The user should be able to change payment options at any time, but shouldn't
-    //  be able to select the "Select Payment Method" option. So you'll need to check the currently selected payment
-    //  option, and hide and show the payment sections in the form accordingly.
-    //
-    //   -  Hide the "Select Payment Method" 'option' so it doesn't show up in the drop down menu. (Done)
-
-    //   - Get the value of the payment select element, and if it's equal to 'credit card', set the credit card
-    //    payment section in the form to show, and set the other two options to hide.
-
-    //   - Repeat the above step with the PayPal and BitCoin options so that the selected payment is shown and the
-    //    others are hidden.
-
+    // SECTION 4 - PAYMENT INFO SECTION
 
     let values = $("#payment option");
     values[0]["hidden"] = true;
@@ -422,32 +343,7 @@ $(document).ready(function () {
 
 
 
-    // FORM VALIDATION
-
-    //If any of the following validation errors exist, prevent the user form submitting the form:
-    // - Name field can't be blank
-    // - Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address,
-    //   just that it's formatted like one: dave@teamtreehouse.com for example
-    // - User must select at least one checkbox under the "Register for Activities" section of the form.
-    // - If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number,
-    //   a zip code, and a 3 number CVV value before the form can be submitted
-    //  - Credit Card field should accept a 5-digit number
-    //  - The Zip Code field should accept a 5-digit number
-    //  - The CVV should only accept a number that is exactly 3 digits long
-
-
-    //FORM VALIDATION MESSAGES
-    // - Provide some kind of indicatoin when there's a validation error. The field's border could turn red, for example,
-    //   or even better for the user would be if a red text message appeared near the field.
-    // - The following fields should have some obvious form of an error indication:
-    //  - Name Field
-    //  - Email Field
-    //  - Register for Activities checkboxes (at least one must be selected)
-    //  - Credit Card number (only if Credit Card payment method is selected)
-    //  - Zip Code(only if Credit Card payment method is selected)
-    //  - CVV (Only if Credit Card payment method is selected)
-
-
+    // SECTION 5 - FORM VALIDATION
 
     //const nameregex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
     const nameregex = /^[A-Z]{1}[a-z]*[ ][A-Z]{1}[a-z]*$/;
