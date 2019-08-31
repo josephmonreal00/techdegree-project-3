@@ -369,13 +369,7 @@ $(document).ready(function () {
             $("#activityerror").css("color", "red");
         }
     });
-    /*
-    let thenames = [];
-    let theemails = [];
-    let theccs = [];
-    let thezips = [];
-    let thecvvs = [];
-    */
+
     $.each(inputs, function (index, element) {
         element.focusout(function () {
             // Name
@@ -388,9 +382,7 @@ $(document).ready(function () {
                 if (nameregex0.test(element[0]["value"]) == true || nameregex1.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#nameerror").text("");
-                    //thenames.push(element[0]["value"]);
                 }
-                //console.log(thenames);
             }
 
             // Email
@@ -403,9 +395,7 @@ $(document).ready(function () {
                 if (emailregex.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#mailerror").text("");
-                    //theemails.push(element[0]["value"]);
                 }
-                //console.log(theemails);
             }
 
             // Credit Card
@@ -419,9 +409,7 @@ $(document).ready(function () {
                 if (ccnumregex13.test(element[0]["value"]) == true || ccnumregex14.test(element[0]["value"]) == true || ccnumregex15.test(element[0]["value"]) == true || ccnumregex16.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ccerror").text("");
-                    //theccs.push(element[0]["value"]);
                 }
-                //console.log(theccs);
             }
 
 
@@ -436,9 +424,7 @@ $(document).ready(function () {
                 if (zipregex.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#ziperror").text("");
-                    //thezips.push(element[0]["value"]);
                 }
-                //console.log(thezips);
             }
 
 
@@ -453,18 +439,28 @@ $(document).ready(function () {
                 if (cvvregex.test(element[0]["value"]) == true) {
                     element[0].style.borderColor = "#5e97b0";
                     $("#cvverror").text("");
-                    //thecvvs.push(element[0]["value"]);
                 }
-                //console.log(thecvvs);
             }
         });
     });
 
-    ///&& ccnumregex14.test(element[0]["value"]) == true && ccnumregex15.test(element[0]["value"]) == true && ccnumregex16.test(element[0]["value"]) == true
+    let submitForm = () => {
+        $("form").submit();
+    }
+
+    let dontSubmitForm = () => {
+        $("form").submit(function () {
+            $("button").css("backgroundColor", "red");
+            $("#submiterror").text("Please complete form.");
+            $("#submiterror").css("color", "red");
+            event.preventDefault();
+        });
+    }
 
     $("button").click(function () {
+
         const checkVals = [$("#name"), $("#mail"), $("#cc-num"), $("#zip"), $("#cvv")];
-        //let correctValues = [];
+
         let cVals = {
             name: "",
             email: "",
@@ -472,6 +468,7 @@ $(document).ready(function () {
             zip: "",
             cvv: ""
         };
+
         if (nameregex0.test($("#name")[0]["value"])) {
             //correctValues.push($("#name")[0]["value"]);
             cVals.name = $("#name")[0]["value"];
@@ -484,6 +481,18 @@ $(document).ready(function () {
             //correctValues.push($("#cc-num")[0]["value"]);
             cVals.cc = $("#cc-num")[0]["value"];
         }
+        if (ccnumregex14.test($("#cc-num")[0]["value"])) {
+            //correctValues.push($("#cc-num")[0]["value"]);
+            cVals.cc = $("#cc-num")[0]["value"];
+        }
+        if (ccnumregex15.test($("#cc-num")[0]["value"])) {
+            //correctValues.push($("#cc-num")[0]["value"]);
+            cVals.cc = $("#cc-num")[0]["value"];
+        }
+        if (ccnumregex16.test($("#cc-num")[0]["value"])) {
+            //correctValues.push($("#cc-num")[0]["value"]);
+            cVals.cc = $("#cc-num")[0]["value"];
+        }
         if (zipregex.test($("#zip")[0]["value"])) {
             //correctValues.push($("#zip")[0]["value"]);
             cVals.zip = $("#zip")[0]["value"];
@@ -492,18 +501,37 @@ $(document).ready(function () {
             //correctValues.push($("#cvv")[0]["value"]);
             cVals.cvv = $("#cvv")[0]["value"];
         }
-        console.log(cVals);
+
+        //console.log(cVals);
+        //console.log(nameregex0.test(cVals.name));
+        //console.log(emailregex.test(cVals.email));
+        //console.log(ccnumregex13.test(cVals.cc));
+        //console.log(zipregex.test(cVals.zip));
+        //console.log(cvvregex.test(cVals.cvv));
+        //console.log(a_count);
 
 
-        $("form").submit(function (event) {
-            if (cVals.length == 5 && a_count != 7) {
-                return;
+        if ($("#payment")[0][1]["selected"] == true || selectedPayment[selectedPayment.length - 1] == "credit card") {
+            if (nameregex0.test(cVals.name) == true && emailregex.test(cVals.email) == true && ccnumregex13.test(cVals.cc) == true && zipregex.test(cVals.zip) == true && cvvregex.test(cVals.cvv) == true && a_count < 7) {
+                submitForm();
+            } else if (nameregex0.test(cVals.name) == true && emailregex.test(cVals.email) == true && ccnumregex14.test(cVals.cc) == true && zipregex.test(cVals.zip) == true && cvvregex.test(cVals.cvv) == true && a_count < 7) {
+                submitForm();
+            } else if (nameregex0.test(cVals.name) == true && emailregex.test(cVals.email) == true && ccnumregex15.test(cVals.cc) == true && zipregex.test(cVals.zip) == true && cvvregex.test(cVals.cvv) == true && a_count < 7) {
+                submitForm();
+            } else if (nameregex0.test(cVals.name) == true && emailregex.test(cVals.email) == true && ccnumregex16.test(cVals.cc) == true && zipregex.test(cVals.zip) == true && cvvregex.test(cVals.cvv) == true && a_count < 7) {
+                submitForm();
             } else {
-                event.preventDefault();
+                dontSubmitForm();
             }
-        });
+        }
+
+        if (selectedPayment.length != 0 && selectedPayment[selectedPayment.length - 1] == "paypal" || selectedPayment.length != 0 && selectedPayment[selectedPayment.length - 1] == "bitcoin") {
+            if (nameregex0.test(cVals.name) == true && emailregex.test(cVals.email) == true && a_count < 7) {
+                submitForm();
+            } else {
+                dontSubmitForm();
+            }
+        }
     });
-
-
 
 }); // END OF EVENT LISTENER FOR $(document).ready(function () {
