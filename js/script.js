@@ -470,46 +470,29 @@ $(document).ready(function () {
         };
 
         if (nameregex0.test($("#name")[0]["value"])) {
-            //correctValues.push($("#name")[0]["value"]);
             cVals.name = $("#name")[0]["value"];
         }
         if (emailregex.test($("#mail")[0]["value"])) {
-            //correctValues.push($("#mail")[0]["value"]);
             cVals.email = $("#mail")[0]["value"];
         }
         if (ccnumregex13.test($("#cc-num")[0]["value"])) {
-            //correctValues.push($("#cc-num")[0]["value"]);
             cVals.cc = $("#cc-num")[0]["value"];
         }
         if (ccnumregex14.test($("#cc-num")[0]["value"])) {
-            //correctValues.push($("#cc-num")[0]["value"]);
             cVals.cc = $("#cc-num")[0]["value"];
         }
         if (ccnumregex15.test($("#cc-num")[0]["value"])) {
-            //correctValues.push($("#cc-num")[0]["value"]);
             cVals.cc = $("#cc-num")[0]["value"];
         }
         if (ccnumregex16.test($("#cc-num")[0]["value"])) {
-            //correctValues.push($("#cc-num")[0]["value"]);
             cVals.cc = $("#cc-num")[0]["value"];
         }
         if (zipregex.test($("#zip")[0]["value"])) {
-            //correctValues.push($("#zip")[0]["value"]);
             cVals.zip = $("#zip")[0]["value"];
         }
         if (cvvregex.test($("#cvv")[0]["value"])) {
-            //correctValues.push($("#cvv")[0]["value"]);
             cVals.cvv = $("#cvv")[0]["value"];
         }
-
-        //console.log(cVals);
-        //console.log(nameregex0.test(cVals.name));
-        //console.log(emailregex.test(cVals.email));
-        //console.log(ccnumregex13.test(cVals.cc));
-        //console.log(zipregex.test(cVals.zip));
-        //console.log(cvvregex.test(cVals.cvv));
-        //console.log(a_count);
-
 
         if ($("#payment")[0][1]["selected"] == true || selectedPayment[selectedPayment.length - 1] == "credit card") {
             if (nameregex0.test(cVals.name) == true && emailregex.test(cVals.email) == true && ccnumregex13.test(cVals.cc) == true && zipregex.test(cVals.zip) == true && cvvregex.test(cVals.cvv) == true && a_count < 7) {
