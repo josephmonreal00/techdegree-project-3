@@ -22,7 +22,6 @@ $(document).ready(function () {
         }
     });
 
-
     // SECTION 3 - T-Shirt 
 
     $("#design option").eq(0).hide();
@@ -54,7 +53,6 @@ $(document).ready(function () {
             punscolors.push($(element));
         }
     });
-
 
     $("#design").change(function (e) {
         if (e.target.value == "js puns") {
@@ -198,7 +196,6 @@ $(document).ready(function () {
 
         }); // FOR LOOP FOR CHECKED ACTIVITIES
 
-
         // FOR LOOP FOR UNCHECKED ACTIVITIES
         $.each(activity_obj["input_multi"][1], function (index, element) {
             let unchecked_day = '';
@@ -314,8 +311,6 @@ $(document).ready(function () {
     });
     console.log("selected payment length", selectedPayment.length);
 
-
-
     // SECTION 5 - FORM VALIDATION
 
     const nameregex0 = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
@@ -338,7 +333,6 @@ $(document).ready(function () {
     $("button").after("<br><small id='submiterror'></small>");
     $(".activities label").eq(6)[0].after($("<small id='activityerror'></small>")[0]);
 
-
     let act_error = $(".activities label");
     let a_count = 0;
 
@@ -352,7 +346,6 @@ $(document).ready(function () {
             $("#activityerror").css("color", "red");
         }
     });
-
 
     $(".activities label").change(function (event) {
         if (event.target.checked == true) {
@@ -372,6 +365,7 @@ $(document).ready(function () {
 
     $.each(inputs, function (index, element) {
         element.focusout(function () {
+
             // Name
             if (index == 0) {
                 if (nameregex0.test(element[0]["value"]) == false || nameregex1.test(element[0]["value"]) == false) {
@@ -412,7 +406,6 @@ $(document).ready(function () {
                 }
             }
 
-
             // Zip Code
             if (index == 3) {
                 if (zipregex.test(element[0]["value"]) == false) {
@@ -426,7 +419,6 @@ $(document).ready(function () {
                     $("#ziperror").text("");
                 }
             }
-
 
             // CVV
             if (index == 4) {
@@ -469,28 +461,71 @@ $(document).ready(function () {
             cvv: ""
         };
 
-        if (nameregex0.test($("#name")[0]["value"])) {
+        //--------------------------------------------------------
+        if (nameregex0.test($("#name")[0]["value"]) == false) {
+            $("#nameerror").text("Please enter your name.");
+            $("#nameerror").css("color", "red");
+        }
+        if (emailregex.test($("#mail")[0]["value"]) == false) {
+            $("#mailerror").text("Please enter email address.");
+            $("#mailerror").css("color", "red");
+        }
+        if (ccnumregex13.test($("#cc-num")[0]["value"]) == false) {
+            $("#ccerror").text("Please enter credit number 13 - 16 digits long.");
+            $("#ccerror").css("color", "red");
+        }
+        if (ccnumregex14.test($("#cc-num")[0]["value"]) == false) {
+            $("#ccerror").text("Please enter credit number 13 - 16 digits long.");
+            $("#ccerror").css("color", "red");
+        }
+        if (ccnumregex15.test($("#cc-num")[0]["value"]) == false) {
+            $("#ccerror").text("Please enter credit number 13 - 16 digits long.");
+            $("#ccerror").css("color", "red");
+        }
+        if (ccnumregex16.test($("#cc-num")[0]["value"]) == false) {
+            $("#ccerror").text("Please enter credit number 13 - 16 digits long.");
+            $("#ccerror").css("color", "red");
+        }
+        if (zipregex.test($("#zip")[0]["value"]) == false) {
+            $("#ziperror").text("Enter 5 digit number.");
+            $("#ziperror").css("color", "red");
+        }
+        if (cvvregex.test($("#cvv")[0]["value"]) == false) {
+            $("#cvverror").text("Enter 3 digit number.");
+            $("#cvverror").css("color", "red");
+        }
+        //----------------------------------------------------------
+
+        if (nameregex0.test($("#name")[0]["value"]) == true) {
+            $("#nameerror").text("");
             cVals.name = $("#name")[0]["value"];
         }
-        if (emailregex.test($("#mail")[0]["value"])) {
+        if (emailregex.test($("#mail")[0]["value"]) == true) {
+            $("#mailerror").text("");
             cVals.email = $("#mail")[0]["value"];
         }
-        if (ccnumregex13.test($("#cc-num")[0]["value"])) {
+        if (ccnumregex13.test($("#cc-num")[0]["value"]) == true) {
+            $("#ccerror").text("");
             cVals.cc = $("#cc-num")[0]["value"];
         }
-        if (ccnumregex14.test($("#cc-num")[0]["value"])) {
+        if (ccnumregex14.test($("#cc-num")[0]["value"]) == true) {
+            $("#ccerror").text("");
             cVals.cc = $("#cc-num")[0]["value"];
         }
-        if (ccnumregex15.test($("#cc-num")[0]["value"])) {
+        if (ccnumregex15.test($("#cc-num")[0]["value"]) == true) {
+            $("#ccerror").text("");
             cVals.cc = $("#cc-num")[0]["value"];
         }
-        if (ccnumregex16.test($("#cc-num")[0]["value"])) {
+        if (ccnumregex16.test($("#cc-num")[0]["value"]) == true) {
+            $("#ccerror").text("");
             cVals.cc = $("#cc-num")[0]["value"];
         }
-        if (zipregex.test($("#zip")[0]["value"])) {
+        if (zipregex.test($("#zip")[0]["value"]) == true) {
+            $("#ziperror").text("");
             cVals.zip = $("#zip")[0]["value"];
         }
-        if (cvvregex.test($("#cvv")[0]["value"])) {
+        if (cvvregex.test($("#cvv")[0]["value"]) == true) {
+            $("#cvverror").text("");
             cVals.cvv = $("#cvv")[0]["value"];
         }
 
