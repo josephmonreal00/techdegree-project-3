@@ -54,6 +54,8 @@ $(document).ready(function () {
         }
     });
 
+    // T SHIRT SECTION - HIDING COLOR LABEL TILL T-SHIRT DESIGN IS SELECTED
+
     $("#design").change(function (e) {
         if (e.target.value == "js puns") {
             $("#colors-js-puns").show("slow");
@@ -307,9 +309,7 @@ $(document).ready(function () {
             $(allDivs[allDivs.length - 2])[0]["hidden"] = true;
             $("#credit-card").show("slow");
         }
-        console.log("selected payment", selectedPayment);
     });
-    console.log("selected payment length", selectedPayment.length);
 
     // SECTION 5 - FORM VALIDATION
 
@@ -460,6 +460,8 @@ $(document).ready(function () {
             zip: "",
             cvv: ""
         };
+
+        // EC - REAL TIME ERROR MESSAGES
 
         //--------------------------------------------------------
         if (nameregex0.test($("#name")[0]["value"]) == false) {
